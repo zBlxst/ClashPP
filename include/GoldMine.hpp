@@ -7,9 +7,6 @@
 
 class GoldMine : public ResourceGenerator {
 
-private:
-	std::shared_ptr<std::thread> m_production_thread;
-
 public:
 	GoldMine(Village &village, GameManager &game_manager);
 
@@ -18,7 +15,6 @@ public:
 
 	float get_mana_cost();
 
-	static void production_thread_function(GoldMine &obj);
 
 	virtual void update_stats();
 	void print_infos();

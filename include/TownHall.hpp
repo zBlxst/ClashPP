@@ -10,6 +10,7 @@ private:
 	static constexpr int SIZE = 4;
 	static constexpr int MAX_LEVEL = 5;
 	static constexpr double COSTS[MAX_LEVEL+1] = {0, 1700, 5000, 10000, 21000, 36000};
+	static constexpr double UPGRADE_TIMES[MAX_LEVEL+1] = {0, 120, 600, 1800, 3600, 7200};
 
 	float m_cost;
 

@@ -34,8 +34,10 @@ void GameManager::stop() {
 	std::cout << "GameManager is stoping" << std::endl;
 	for (size_t i = 0; i < m_all_threads.size(); i++) {
 		std::cout << "Waiting for thread " << i << std::endl;
-		std::cout << "Joining on thread " <<  i << std::endl;
-		m_all_threads[i]->join();
+		if (m_all_threads[i]->joinable()) {
+			m_all_threads[i]->join();
+		}
+		std::cout << "Joined on thread " <<  i << std::endl;
 	}
 	m_window_manager.stop();
 }

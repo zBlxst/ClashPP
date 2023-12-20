@@ -9,6 +9,7 @@ void Tank::update_stats() {
 	Building::update_stats();
 	m_cost = Tank::COSTS[m_level];
 	m_capacity = Tank::CAPACITIES[m_level];
+	m_upgrade_time = Tank::UPGRADE_TIMES[m_level];
 }
 
 void Tank::print_infos() {

@@ -4,9 +4,10 @@
 #include "GameManager.hpp"
 
 #include <iostream>
+#include <chrono>
 
 Building::Building(Village &village, GameManager &game_manager, sf::Texture &texture) : Clickable(game_manager.get_window_manager(), texture), m_id(Building::max_id++),
-	m_game_manager(game_manager), m_village(village), m_level(0), m_level_max(0), m_size_in_blocks(0), m_position_in_village_i(0), m_position_in_village_j(0) {
+	m_game_manager(game_manager), m_village(village), m_level(0), m_level_max(0), m_size_in_blocks(0), m_position_in_village_i(0), m_position_in_village_j(0), m_upgrading(false) {
 	update_stats();
 }
 
@@ -36,11 +37,13 @@ int Building::get_level() {
 }
 
 void Building::level_up() {
+	m_upgrading = false;
 	if (m_level < m_level_max) {
 		m_level += 1;
 	}
 	update_stats();
 	m_village.update();
+	m_sprite.setColor(sf::Color(255, 255, 255));
 }
 
 void Building::update_stats() {}
@@ -57,9 +60,17 @@ void Building::start_upgrade() {
 	if (m_village.get_resources_manager().get_mana() < get_mana_cost()) {
 		return;
 	}
+	if (m_upgrading) {
+		return;
+	}
+
+	m_upgrading = true;
+	m_upgrade_step = 0;
 	m_village.get_resources_manager().add_gold(-get_gold_cost());
 	m_village.get_resources_manager().add_mana(-get_mana_cost());
-	level_up();
+	m_sprite.setColor(sf::Color(100, 100, 100));
+	m_upgrading_thread = std::make_shared<std::thread>(Building::upgrade_thread_function, std::ref(*this));
+	m_game_manager.add_thread(m_upgrading_thread);
 }
 
 void Building::print_infos() {
@@ -120,4 +131,13 @@ int Building::get_size() {
 
 bool Building::is_position_relative() {
 	return true;
+}
+
+void Building::upgrade_thread_function(Building &obj) {
+	while (obj.m_upgrade_step < obj.m_upgrade_time and obj.m_game_manager.is_running()) {
+		obj.m_upgrade_step += 1 * Building::DEBUG_MULTIPLIER_TIME;
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::cout << "Upgrade : " << obj.m_upgrade_step << "/" << obj.m_upgrade_time << std::endl;
+	}
+	obj.level_up();
 }

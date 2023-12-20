@@ -1,8 +1,12 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 #include <iostream>
 #include <string>
-#include <SFML/Graphics.hpp>
+#include <thread>
+#include <memory>
+
 #include "Displayable.hpp"
 #include "Clickable.hpp"
 
@@ -26,6 +30,16 @@ protected:
 
 	int m_position_in_village_i;
 	int m_position_in_village_j;
+
+	bool m_upgrading;
+	double m_upgrade_time;
+	double m_upgrade_step;
+
+	std::shared_ptr<std::thread> m_upgrading_thread;
+	static void upgrade_thread_function(Building &obj);
+
+	static constexpr double DEBUG_MULTIPLIER_TIME = 100;
+
 
 public:
 
