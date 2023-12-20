@@ -1,4 +1,4 @@
-#include "ResourceGenerator.hpp"
+#include "Buildings/ResourceGenerator.hpp"
 
 #include <chrono>
 #include <thread>

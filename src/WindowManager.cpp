@@ -4,14 +4,14 @@
 
 #include "GameManager.hpp"
 #include "Displayable.hpp"
-#include "Building.hpp"
 #include "Clickable.hpp"
 
-#include "GoldTank.hpp"
-#include "GoldMine.hpp"
-#include "ManaMill.hpp"
-#include "ManaTank.hpp"
-#include "TownHall.hpp"
+#include "Buildings/Building.hpp"
+#include "Buildings/GoldTank.hpp"
+#include "Buildings/GoldMine.hpp"
+#include "Buildings/ManaMill.hpp"
+#include "Buildings/ManaTank.hpp"
+#include "Buildings/TownHall.hpp"
 
 WindowManager::WindowManager(int width, int height, GameManager &game_manager) : m_game_manager(game_manager), m_assets_manager(), 
 	m_width(width), m_height(height), m_width_block(width/50), m_height_block(height/50),

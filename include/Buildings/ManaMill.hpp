@@ -3,7 +3,9 @@
 #include "ResourceGenerator.hpp"
 #include <thread>
 #include <memory>
-#include "GameManager.hpp"
+
+class Village;
+class GameManager;
 
 class ManaMill : public ResourceGenerator {
 

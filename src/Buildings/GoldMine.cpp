@@ -1,4 +1,5 @@
-#include "GoldMine.hpp"
+#include "Buildings/GoldMine.hpp"
+
 #include "Village.hpp"
 #include "GameManager.hpp"
 

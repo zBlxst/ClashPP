@@ -1,4 +1,5 @@
-#include "TownHall.hpp"
+#include "Buildings/TownHall.hpp"
+
 #include "GameManager.hpp"
 
 TownHall::TownHall(Village &village, GameManager &game_manager) : Building(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_town_hall_texture()), 

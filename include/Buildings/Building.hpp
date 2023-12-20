@@ -7,7 +7,6 @@
 #include <thread>
 #include <memory>
 
-#include "Displayable.hpp"
 #include "Clickable.hpp"
 
 class Village;

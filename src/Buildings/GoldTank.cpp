@@ -1,4 +1,4 @@
-#include "GoldTank.hpp"
+#include "Buildings/GoldTank.hpp"
 
 #include <string>
 #include <iostream>

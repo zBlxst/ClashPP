@@ -4,6 +4,9 @@
 #include <memory>
 #include <thread>
 
+class Village;
+class GameManager;
+
 class ResourceGenerator : public Building {
 
 protected:

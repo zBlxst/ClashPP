@@ -1,4 +1,4 @@
-#include "Building.hpp"
+#include "Buildings/Building.hpp"
 
 #include "Village.hpp"
 #include "GameManager.hpp"

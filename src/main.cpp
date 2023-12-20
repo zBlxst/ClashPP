@@ -8,7 +8,7 @@
 #include "ResourcesManager.hpp"
 #include "GameManager.hpp"
 
-#include <Building.hpp>
+#include <Buildings/Building.hpp>
 
 int main(int argc, char *argv[]) {
 

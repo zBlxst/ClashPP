@@ -3,6 +3,7 @@
 #include "Building.hpp"
 
 class Village;
+class GameManager;
 
 class Tank : public Building {
 

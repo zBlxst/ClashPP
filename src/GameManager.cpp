@@ -1,10 +1,10 @@
 #include "GameManager.hpp"
 
-#include "GoldTank.hpp"
-#include "GoldMine.hpp"
-#include "ManaMill.hpp"
-#include "ManaTank.hpp"
-#include "TownHall.hpp"
+#include "Buildings/GoldTank.hpp"
+#include "Buildings/GoldMine.hpp"
+#include "Buildings/ManaMill.hpp"
+#include "Buildings/ManaTank.hpp"
+#include "Buildings/TownHall.hpp"
 
 GameManager::GameManager() : 	m_running(false), m_all_threads(std::vector<std::shared_ptr<std::thread>>()),
 							 	m_village(Village(*this)), m_window_manager(1200, 1200, *this) {}

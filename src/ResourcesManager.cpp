@@ -1,7 +1,8 @@
 #include "ResourcesManager.hpp"
 
 #include "Village.hpp"
-#include "Building.hpp"
+#include "Buildings/Building.hpp"
+
 #include <memory>
 #include <iostream>
 #include <string>

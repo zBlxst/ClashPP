@@ -9,21 +9,21 @@ BUILDDIR:= target
 # ADD NEWLY CREATED FILES HERE:
 override SRC :=	\
 		src/main.cpp \
-		src/Building.cpp \
 		src/Village.cpp \
-		src/Tank.cpp \
 		src/ResourcesManager.cpp \
-		src/GoldTank.cpp \
-		src/ResourceGenerator.cpp \
-		src/GoldMine.cpp \
 		src/GameManager.cpp \
-		src/ManaMill.cpp \
-		src/ManaTank.cpp \
-		src/TownHall.cpp \
 		src/WindowManager.cpp \
 		src/AssetsManager.cpp \
 		src/Displayable.cpp \
 		src/Clickable.cpp \
+		src/Buildings/Building.cpp \
+		src/Buildings/TownHall.cpp \
+		src/Buildings/Tank.cpp \
+		src/Buildings/GoldTank.cpp \
+		src/Buildings/ManaTank.cpp \
+		src/Buildings/ResourceGenerator.cpp \
+		src/Buildings/GoldMine.cpp \
+		src/Buildings/ManaMill.cpp \
 
 
 		

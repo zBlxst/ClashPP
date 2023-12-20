@@ -1,4 +1,4 @@
-#include "Tank.hpp"
+#include "Buildings/Tank.hpp"
 
 Tank::Tank(Village &village, GameManager &game_manager, sf::Texture &texture) : Building(village, game_manager, texture), m_cost(0), m_capacity(0) {
 	m_size_in_blocks = Tank::SIZE;

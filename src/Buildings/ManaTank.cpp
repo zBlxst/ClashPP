@@ -1,4 +1,4 @@
-#include "ManaTank.hpp"
+#include "Buildings/ManaTank.hpp"
 
 #include <string>
 #include <iostream>

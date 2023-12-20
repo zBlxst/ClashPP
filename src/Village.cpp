@@ -1,8 +1,8 @@
 #include "Village.hpp"
 #include <iostream>
 
-#include "Building.hpp"
-#include "TownHall.hpp"
+#include "Buildings/Building.hpp"
+#include "Buildings/TownHall.hpp"
 #include "GameManager.hpp"
 
 Village::Village(GameManager &game_manager) : 	m_game_manager(game_manager),

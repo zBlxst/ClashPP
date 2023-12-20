@@ -1,4 +1,5 @@
-#include "ManaMill.hpp"
+#include "Buildings/ManaMill.hpp"
+
 #include "Village.hpp"
 #include "GameManager.hpp"
 

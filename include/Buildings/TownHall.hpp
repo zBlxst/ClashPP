@@ -3,6 +3,7 @@
 #include "Building.hpp"
 
 class Village;
+class GameManager;
 
 class TownHall : public Building {
 
