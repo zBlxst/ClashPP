@@ -34,8 +34,8 @@ public:
 	void create_building(T* = NULL) {
 		std::shared_ptr<T> building = std::make_shared<T>(m_village, *this);
 		m_village.add_building(building);
-		m_window_manager.add_displayable(building);
-		m_window_manager.add_clickable(building);
+		m_window_manager.get_current_scene().add_displayable(building);
+		m_window_manager.get_current_scene().add_clickable(building);
 		m_village.find_free_room(*building);
 		building->lock_position();
 		building->level_up();

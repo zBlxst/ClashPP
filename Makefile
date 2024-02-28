@@ -16,6 +16,7 @@ override SRC :=	\
 		src/AssetsManager.cpp \
 		src/Displayable.cpp \
 		src/Clickable.cpp \
+		\
 		src/Buildings/Building.cpp \
 		src/Buildings/TownHall.cpp \
 		src/Buildings/Tank.cpp \
@@ -24,6 +25,9 @@ override SRC :=	\
 		src/Buildings/ResourceGenerator.cpp \
 		src/Buildings/GoldMine.cpp \
 		src/Buildings/ManaMill.cpp \
+		\
+		src/Scenes/Scene.cpp \
+		src/Scenes/VillageScene.cpp \
 
 
 		

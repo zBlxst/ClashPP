@@ -4,11 +4,16 @@
 #include "AssetsManager.hpp"
 
 #include <vector>
-#include <memory>
+#include <memory> 
+
+#include "Scenes/Scene.hpp"
+#include <Scenes/VillageScene.hpp>
 
 class GameManager;
 class Displayable;
 class Clickable;
+
+
 
 class WindowManager {
 
@@ -18,6 +23,9 @@ private:
 
 	std::vector<std::shared_ptr<Displayable>> m_displayables;
 	std::vector<std::shared_ptr<Clickable>> m_clickables;
+
+	VillageScene m_village_scene;
+	Scene &m_current_scene;
 
 	int m_width;
 	int m_height;
@@ -36,13 +44,12 @@ public:
 	void stop();
 
 	void display();
-	void add_displayable(std::shared_ptr<Displayable> displayable);
-	void add_clickable(std::shared_ptr<Clickable> clickable);
-	void update_sprites();
 	void manage_events();
 
 	int get_width_block();
 	int get_height_block();
+
+	Scene& get_current_scene();
 
 
 	sf::RenderWindow& get_window();

@@ -21,7 +21,7 @@ void GameManager::start() {
 	create_building<ManaMill>();
 	create_building<ManaTank>();
 
-	m_window_manager.update_sprites();
+	m_window_manager.get_current_scene().update_sprites();
 
 	main_loop();
 
