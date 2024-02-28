@@ -54,6 +54,10 @@ Scene& WindowManager::get_current_scene() {
 	return m_current_scene;
 }
 
+VillageScene& WindowManager::get_village_scene() {
+	return m_village_scene;
+}
+
 void WindowManager::manage_events() {
 	sf::Event event;
 	while (m_window.pollEvent(event)) {

@@ -13,7 +13,8 @@
 #include "Buildings/ManaTank.hpp"
 #include "Buildings/TownHall.hpp"
 
-VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, bool visible) : Scene(window_manager, visible), m_game_manager(game_manager) {}
+VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, bool visible) : Scene(window_manager, visible), m_game_manager(game_manager), 
+							m_selected_building_id(-1) {}
 
 void VillageScene::load() {
 	m_text_gold.setFont(m_window_manager.get_assets_manager().get_gold_and_mana_font());
@@ -48,6 +49,7 @@ void VillageScene::display() {
 
 
 void VillageScene::manage_event(sf::Event event) {
+	bool catched = false;
 	if (event.type == sf::Event::KeyPressed) {
 		switch (event.key.code) {
 			case sf::Keyboard::A: 
@@ -57,6 +59,8 @@ void VillageScene::manage_event(sf::Event event) {
 				} else {
 					m_game_manager.create_building<TownHall>();
 				}
+
+				catched = true;
 				break;
 			case sf::Keyboard::B:
 				if (!event.key.control) {
@@ -65,6 +69,7 @@ void VillageScene::manage_event(sf::Event event) {
 				} else {
 					m_game_manager.create_building<GoldTank>();
 				}
+				catched = true;
 				break;
 			case sf::Keyboard::C:
 				if (!event.key.control) {
@@ -73,6 +78,7 @@ void VillageScene::manage_event(sf::Event event) {
 				} else {
 					m_game_manager.create_building<GoldMine>();
 				}
+				catched = true;
 				break;
 			case sf::Keyboard::D:
 				if (!event.key.control) {
@@ -81,6 +87,7 @@ void VillageScene::manage_event(sf::Event event) {
 				} else {
 					m_game_manager.create_building<ManaMill>();
 				}
+				catched = true;
 				break;
 			case sf::Keyboard::E:
 				if (!event.key.control) {
@@ -89,10 +96,12 @@ void VillageScene::manage_event(sf::Event event) {
 				} else {
 					m_game_manager.create_building<ManaTank>();
 				}
+				catched = true;
 				break;
 			case sf::Keyboard::R:
 				m_game_manager.get_village().get_resources_manager().add_gold(10000000000000000);
 				m_game_manager.get_village().get_resources_manager().add_mana(10000000000000000);
+				catched = true;
 				break;
 			default:
 				break;	
@@ -104,8 +113,12 @@ void VillageScene::manage_event(sf::Event event) {
 				for (size_t i = 0; i < m_clickables.size(); i++) {
 					if (m_clickables[i]->is_clicked(event.mouseButton.x, event.mouseButton.y)) {
 						m_clickables[i]->on_click();
+						catched = true;
 						break;
 					}
+				}
+				if (!catched) {
+					m_selected_building_id = -1;
 				}
 				break;
 			default:
@@ -113,4 +126,12 @@ void VillageScene::manage_event(sf::Event event) {
 
 		}
 	}
+}
+
+int VillageScene::get_selected_building_id() {
+	return m_selected_building_id;
+}
+
+void VillageScene::selected_building(int id) {
+	m_selected_building_id = id;
 }

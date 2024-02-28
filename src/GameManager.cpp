@@ -7,7 +7,7 @@
 #include "Buildings/TownHall.hpp"
 
 GameManager::GameManager() : 	m_running(false), m_all_threads(std::vector<std::shared_ptr<std::thread>>()),
-							 	m_village(Village(*this)), m_window_manager(1200, 1200, *this) {}
+							 	m_window_manager(1200, 1200, *this), m_village(Village(*this, m_window_manager.get_village_scene())) {}
 
 
 void GameManager::start() {

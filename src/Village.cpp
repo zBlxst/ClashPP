@@ -5,9 +5,10 @@
 #include "Buildings/TownHall.hpp"
 #include "GameManager.hpp"
 
-Village::Village(GameManager &game_manager) : 	m_game_manager(game_manager),
-												m_buildings(std::vector<std::shared_ptr<Building>>()), 
-					 							m_resources_manager(*this) {}
+Village::Village(GameManager &game_manager, VillageScene &village_scene) : 	
+				m_game_manager(game_manager),
+				m_buildings(std::vector<std::shared_ptr<Building>>()), 
+				m_resources_manager(*this), m_village_scene(village_scene) {}
 
 void Village::add_building(std::shared_ptr<Building> b) {
 	m_buildings.push_back(b);
@@ -57,4 +58,8 @@ void Village::find_free_room(Building &building) {
 			}
 		}
 	}
+}
+
+VillageScene& Village::get_village_scene() {
+	return m_village_scene;
 }

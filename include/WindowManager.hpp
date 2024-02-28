@@ -50,6 +50,7 @@ public:
 	int get_height_block();
 
 	Scene& get_current_scene();
+	VillageScene& get_village_scene();
 
 
 	sf::RenderWindow& get_window();

@@ -13,8 +13,8 @@ private:
 	bool m_running;
 	std::vector<std::shared_ptr<std::thread>> m_all_threads;
 
-	Village m_village;
 	WindowManager m_window_manager;
+	Village m_village;
 
 	void main_loop();
 

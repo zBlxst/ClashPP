@@ -86,7 +86,11 @@ void Building::update_sprite() {
 }
 
 void Building::on_click() {
-	interact();
+	if (m_village.get_village_scene().get_selected_building_id() == m_id) {
+		interact();
+	} else {
+		m_village.get_village_scene().selected_building(m_id);
+	}
 }
 
 bool Building::intersect(Building &other) {
