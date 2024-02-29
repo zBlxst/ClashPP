@@ -7,7 +7,7 @@
 class WindowManager;
 class Displayable;
 class Clickable;
-
+class Button;
 
 class Scene {
 
@@ -31,6 +31,7 @@ public:
 	virtual void display() = 0;
 	void add_displayable(std::shared_ptr<Displayable> displayable);
 	void add_clickable(std::shared_ptr<Clickable> clickable);
+	void add_button(std::shared_ptr<Button> button);
 	void update_sprites();
 
 	virtual void manage_event(sf::Event event) = 0;

@@ -104,8 +104,7 @@ void Building::update_sprite() {
 
 void Building::add_button(std::shared_ptr<BuildingButton> button) {
 	m_buttons.push_back(button);
-	m_game_manager.get_window_manager().get_village_scene().add_clickable(button);
-	m_game_manager.get_window_manager().get_village_scene().add_displayable(button);
+	m_game_manager.get_window_manager().get_village_scene().add_button(button);
 }
 
 void Building::on_click() {

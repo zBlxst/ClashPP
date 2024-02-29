@@ -9,3 +9,12 @@ CollectResourceButton::CollectResourceButton(ResourceGenerator &resource_generat
 void CollectResourceButton::on_click() {
 	m_resource_generator.collect();
 }
+
+void CollectResourceButton::update_sprite() {
+	if (!m_resource_generator.get_stored()) {
+		m_sprite.setColor(sf::Color(100, 100, 100));
+	} else {
+		m_sprite.setColor(sf::Color(255, 255, 255));
+	}
+	BuildingButton::update_sprite();
+}

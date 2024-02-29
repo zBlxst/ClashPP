@@ -2,6 +2,7 @@
 
 #include "Displayable.hpp"
 #include "Clickable.hpp"
+#include "Buttons/Button.hpp"
 
 Scene::Scene(WindowManager &window_manager, bool visible) : m_window_manager(window_manager), m_visible(visible) {}
 
@@ -11,6 +12,11 @@ void Scene::add_displayable(std::shared_ptr<Displayable> displayable) {
 
 void Scene::add_clickable(std::shared_ptr<Clickable> clickable) {
 	m_clickables.push_back(clickable);
+}
+
+void Scene::add_button(std::shared_ptr<Button> button) {
+	add_clickable(button);
+	add_displayable(button);
 }
 
 void Scene::update_sprites() {
