@@ -49,6 +49,9 @@ public:
 	int get_width_block();
 	int get_height_block();
 
+	int get_width();
+	int get_height();
+
 	Scene& get_current_scene();
 	VillageScene& get_village_scene();
 

@@ -15,7 +15,7 @@
 #include "Buildings/TownHall.hpp"
 
 WindowManager::WindowManager(int width, int height, GameManager &game_manager) : m_game_manager(game_manager), m_assets_manager(),
-	m_village_scene(VillageScene(*this, game_manager, true)), m_current_scene(std::ref(m_village_scene)),
+	m_village_scene(VillageScene(*this, game_manager, game_manager.get_village(), true)), m_current_scene(std::ref(m_village_scene)),
 	m_width(width), m_height(height), m_width_block(width/50), m_height_block(height/50),
 	m_window(sf::RenderWindow(sf::VideoMode(width, height), "This Is The Title !")) {}
 
@@ -40,6 +40,14 @@ int WindowManager::get_width_block() {
 
 int WindowManager::get_height_block() {
 	return m_height_block;
+}
+
+int WindowManager::get_width() {
+	return m_width;
+}
+
+int WindowManager::get_height() {
+	return m_height;
 }
 
 sf::RenderWindow& WindowManager::get_window() {

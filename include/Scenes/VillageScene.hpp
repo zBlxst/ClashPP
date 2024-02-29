@@ -9,19 +9,24 @@
 class WindowManager;
 class GameManager;
 class Building;
+class Village;
+
 
 class VillageScene : public Scene {
 
 private:
 	GameManager &m_game_manager;
+	Village &m_village;
+
 
 	sf::Text m_text_gold;
 	sf::Text m_text_mana;
 
 	int m_selected_building_id;
 
+
 public:
-	VillageScene(WindowManager &window_manager, GameManager &game_manager, bool visible);
+	VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village, bool visible);
 
 	void load();
 	void unload();
@@ -30,7 +35,8 @@ public:
 
 	void manage_event(sf::Event event);
 	int get_selected_building_id();
-	void selected_building(int id);
+	void select_building(Building &building);
+	void unselect_building();
 
 
 };

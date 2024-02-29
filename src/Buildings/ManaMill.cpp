@@ -7,7 +7,13 @@
 #include <iostream>
 #include <chrono>
 
-ManaMill::ManaMill(Village &village, GameManager &game_manager) : ResourceGenerator(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_mana_mill_texture()) {}
+#include "Buttons/BuildingButtons/CollectManaButton.hpp"
+
+
+ManaMill::ManaMill(Village &village, GameManager &game_manager) : 
+		ResourceGenerator(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_mana_mill_texture()) {
+	add_button(std::make_shared<CollectManaButton>(*this, game_manager));
+}
 
 float ManaMill::get_mana_production() {
 	return m_production;
@@ -35,8 +41,12 @@ std::string ManaMill::get_class_name() {
 	return "ManaMill";
 }
 
-void ManaMill::interact() {
+void ManaMill::collect() {
 	float overflow = m_stored + m_village.get_resources_manager().get_mana() - m_village.get_resources_manager().get_mana_max() ;
 	m_village.get_resources_manager().add_mana(m_stored);
 	m_stored = std::max(overflow, 0.0f);
+}
+
+void ManaMill::interact() {
+
 }

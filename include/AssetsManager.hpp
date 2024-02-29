@@ -13,6 +13,11 @@ private:
 	sf::Texture m_mana_tank_1_texture;
 	sf::Texture m_town_hall_1_texture;
 
+	sf::Texture m_building_upgrade_texture;
+	sf::Texture m_building_info_texture;
+	sf::Texture m_collect_gold_texture;
+	sf::Texture m_collect_mana_texture;
+
 public:
 	AssetsManager();
 
@@ -23,8 +28,10 @@ public:
 	sf::Texture& get_mana_tank_texture();
 	sf::Texture& get_town_hall_texture();
 
-
-
+	sf::Texture& get_building_upgrade_texture();
+	sf::Texture& get_building_info_texture();
+	sf::Texture& get_collect_gold_texture();
+	sf::Texture& get_collect_mana_texture();
 
 
 };

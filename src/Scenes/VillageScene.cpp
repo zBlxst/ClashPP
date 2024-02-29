@@ -13,8 +13,8 @@
 #include "Buildings/ManaTank.hpp"
 #include "Buildings/TownHall.hpp"
 
-VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, bool visible) : Scene(window_manager, visible), m_game_manager(game_manager), 
-							m_selected_building_id(-1) {}
+VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village, bool visible) : Scene(window_manager, visible), m_game_manager(game_manager), 
+							m_village(village), m_selected_building_id(-1) {}
 
 void VillageScene::load() {
 	m_text_gold.setFont(m_window_manager.get_assets_manager().get_gold_and_mana_font());
@@ -39,6 +39,7 @@ void VillageScene::display() {
 
 	m_window_manager.get_window().clear();
 	for (size_t i = 0; i < m_displayables.size(); i++) {
+		m_displayables[i]->update_sprite();
 		m_displayables[i]->display();
 	}
 
@@ -53,49 +54,23 @@ void VillageScene::manage_event(sf::Event event) {
 	if (event.type == sf::Event::KeyPressed) {
 		switch (event.key.code) {
 			case sf::Keyboard::A: 
-				if (!event.key.control) {
-					m_game_manager.get_village().get_buildings()[0]->start_upgrade();
-					m_game_manager.get_village().get_buildings()[0]->print_infos();	
-				} else {
-					m_game_manager.create_building<TownHall>();
-				}
-
+				m_game_manager.create_building<TownHall>();
 				catched = true;
 				break;
 			case sf::Keyboard::B:
-				if (!event.key.control) {
-					m_game_manager.get_village().get_buildings()[1]->start_upgrade();
-					m_game_manager.get_village().get_buildings()[1]->print_infos();	
-				} else {
-					m_game_manager.create_building<GoldTank>();
-				}
+				m_game_manager.create_building<GoldTank>();
 				catched = true;
 				break;
 			case sf::Keyboard::C:
-				if (!event.key.control) {
-					m_game_manager.get_village().get_buildings()[2]->start_upgrade();
-					m_game_manager.get_village().get_buildings()[2]->print_infos();	
-				} else {
-					m_game_manager.create_building<GoldMine>();
-				}
+				m_game_manager.create_building<GoldMine>();
 				catched = true;
 				break;
 			case sf::Keyboard::D:
-				if (!event.key.control) {
-					m_game_manager.get_village().get_buildings()[3]->start_upgrade();
-					m_game_manager.get_village().get_buildings()[3]->print_infos();	
-				} else {
-					m_game_manager.create_building<ManaMill>();
-				}
+				m_game_manager.create_building<ManaMill>();
 				catched = true;
 				break;
 			case sf::Keyboard::E:
-				if (!event.key.control) {
-					m_game_manager.get_village().get_buildings()[4]->start_upgrade();
-					m_game_manager.get_village().get_buildings()[4]->print_infos();	
-				} else {
-					m_game_manager.create_building<ManaTank>();
-				}
+				m_game_manager.create_building<ManaTank>();
 				catched = true;
 				break;
 			case sf::Keyboard::R:
@@ -118,7 +93,7 @@ void VillageScene::manage_event(sf::Event event) {
 					}
 				}
 				if (!catched) {
-					m_selected_building_id = -1;
+					unselect_building();
 				}
 				break;
 			default:
@@ -132,6 +107,18 @@ int VillageScene::get_selected_building_id() {
 	return m_selected_building_id;
 }
 
-void VillageScene::selected_building(int id) {
-	m_selected_building_id = id;
+void VillageScene::select_building(Building &building) {
+	unselect_building();
+	m_selected_building_id = building.get_id();
+	building.on_select();
+}
+
+void VillageScene::unselect_building() {
+	std::vector<std::shared_ptr<Building>> all_buildings = m_village.get_buildings();
+	for (size_t i = 0; i < all_buildings.size(); i++) {
+		if (all_buildings[i]->get_id() == m_selected_building_id) {
+			all_buildings[i]->on_unselect();
+		}
+	}
+	m_selected_building_id = -1;
 }

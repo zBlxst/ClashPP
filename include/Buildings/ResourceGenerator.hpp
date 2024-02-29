@@ -34,6 +34,8 @@ public:
 	virtual void update_stats();
 	virtual void print_infos();
 
+	virtual void collect() = 0;
+
 	float get_stored();
 	void add_stored(float amount);
 	float get_production();

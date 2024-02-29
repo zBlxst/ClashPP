@@ -28,6 +28,14 @@ override SRC :=	\
 		\
 		src/Scenes/Scene.cpp \
 		src/Scenes/VillageScene.cpp \
+		\
+		src/Buttons/Button.cpp \
+		src/Buttons/BuildingButtons/BuildingButton.cpp \
+		src/Buttons/BuildingButtons/UpgradeButton.cpp \
+		src/Buttons/BuildingButtons/InfoButton.cpp \
+		src/Buttons/BuildingButtons/CollectResourceButton.cpp \
+		src/Buttons/BuildingButtons/CollectGoldButton.cpp \
+		src/Buttons/BuildingButtons/CollectManaButton.cpp \
 
 
 		

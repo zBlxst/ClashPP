@@ -7,7 +7,13 @@
 #include <iostream>
 #include <chrono>
 
-GoldMine::GoldMine(Village &village, GameManager &game_manager) : ResourceGenerator(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_gold_mine_texture()) {}
+#include "Buttons/BuildingButtons/CollectGoldButton.hpp"
+
+GoldMine::GoldMine(Village &village, GameManager &game_manager) : 
+		ResourceGenerator(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_gold_mine_texture()) {
+
+	add_button(std::make_shared<CollectGoldButton>(*this, game_manager));
+}
 
 float GoldMine::get_gold_production() {
 	return m_production;
@@ -36,8 +42,12 @@ std::string GoldMine::get_class_name() {
 }
 
 
-void GoldMine::interact() {
+void GoldMine::collect() {
 	float overflow = m_stored + m_village.get_resources_manager().get_gold() - m_village.get_resources_manager().get_gold_max() ;
 	m_village.get_resources_manager().add_gold(m_stored);
 	m_stored = std::max(overflow, 0.0f);
+}
+
+void GoldMine::interact() {
+
 }

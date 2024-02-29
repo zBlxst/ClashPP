@@ -2,12 +2,20 @@
 
 #include "Village.hpp"
 #include "GameManager.hpp"
+#include "Buttons/BuildingButtons/BuildingButton.hpp"
+#include "Buttons/BuildingButtons/UpgradeButton.hpp"
+#include "Buttons/BuildingButtons/InfoButton.hpp"
+
 
 #include <iostream>
 #include <chrono>
 
-Building::Building(Village &village, GameManager &game_manager, sf::Texture &texture) : Clickable(game_manager.get_window_manager(), texture), m_id(Building::max_id++),
+Building::Building(Village &village, GameManager &game_manager, sf::Texture &texture) : Clickable(game_manager.get_window_manager(), texture, true, true), m_id(Building::max_id++),
 	m_game_manager(game_manager), m_village(village), m_level(0), m_level_max(0), m_size_in_blocks(0), m_position_in_village_i(0), m_position_in_village_j(0), m_upgrading(false) {
+	
+	add_button(std::make_shared<InfoButton>(*this, game_manager));
+	add_button(std::make_shared<UpgradeButton>(*this, game_manager));
+
 	update_stats();
 }
 
@@ -50,17 +58,26 @@ void Building::update_stats() {}
 
 void Building::interact() {}
 
+void Building::on_select() {
+	for (size_t i = 0; i < m_buttons.size(); i++) {
+		m_buttons[i]->load(i, m_buttons.size());
+	}
+}
+void Building::on_unselect() {
+	for (size_t i = 0; i < m_buttons.size(); i++) {
+		m_buttons[i]->unload();
+	}
+}
+
+bool Building::can_upgrade() {
+	return 	m_village.get_resources_manager().get_gold() >= get_gold_cost() and 
+			m_village.get_resources_manager().get_mana() >= get_mana_cost() and
+			m_level < m_level_max and
+			!m_upgrading;
+}
+
 void Building::start_upgrade() {
-	if (m_level >= m_level_max) {
-		return;
-	}
-	if (m_village.get_resources_manager().get_gold() < get_gold_cost()) {
-		return;
-	}
-	if (m_village.get_resources_manager().get_mana() < get_mana_cost()) {
-		return;
-	}
-	if (m_upgrading) {
+	if (!can_upgrade()) {
 		return;
 	}
 
@@ -85,11 +102,17 @@ void Building::update_sprite() {
 	Displayable::update_sprite();
 }
 
+void Building::add_button(std::shared_ptr<BuildingButton> button) {
+	m_buttons.push_back(button);
+	m_game_manager.get_window_manager().get_village_scene().add_clickable(button);
+	m_game_manager.get_window_manager().get_village_scene().add_displayable(button);
+}
+
 void Building::on_click() {
 	if (m_village.get_village_scene().get_selected_building_id() == m_id) {
 		interact();
 	} else {
-		m_village.get_village_scene().selected_building(m_id);
+		m_village.get_village_scene().select_building(*this);
 	}
 }
 

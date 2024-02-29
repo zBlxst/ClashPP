@@ -12,6 +12,7 @@
 class Village;
 class GameManager;
 
+class BuildingButton;
 
 class Building : public Clickable {
 
@@ -33,6 +34,8 @@ protected:
 	bool m_upgrading;
 	double m_upgrade_time;
 	double m_upgrade_step;
+
+	std::vector<std::shared_ptr<BuildingButton>> m_buttons;
 
 	std::shared_ptr<std::thread> m_upgrading_thread;
 	static void upgrade_thread_function(Building &obj);
@@ -65,12 +68,18 @@ public:
 
 	virtual void start_upgrade();
 
+	void on_select();
+	void on_unselect();
+
 	virtual void interact();
+	
+	bool can_upgrade();
 
 	virtual void print_infos();
 	virtual std::string get_class_name() = 0;
 
 	virtual void update_sprite();
+	void add_button(std::shared_ptr<BuildingButton> button);
 
 	void on_click();
 

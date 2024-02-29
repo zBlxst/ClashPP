@@ -22,6 +22,7 @@ public:
 	std::string get_class_name();
 
 	void interact();
+	void collect();
 
 
 
