@@ -12,6 +12,7 @@
 GoldMine::GoldMine(Village &village, GameManager &game_manager) : 
 		ResourceGenerator(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_gold_mine_texture()) {
 
+	m_class_id = Building::GOLDMINE_ID;
 	add_button(std::make_shared<CollectGoldButton>(*this, game_manager));
 }
 

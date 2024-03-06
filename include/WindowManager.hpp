@@ -24,8 +24,8 @@ private:
 	std::vector<std::shared_ptr<Displayable>> m_displayables;
 	std::vector<std::shared_ptr<Clickable>> m_clickables;
 
-	VillageScene m_village_scene;
-	Scene &m_current_scene;
+	std::shared_ptr<VillageScene> m_village_scene;
+	std::shared_ptr<Scene> m_current_scene;
 
 	int m_width;
 	int m_height;
@@ -52,12 +52,13 @@ public:
 	int get_width();
 	int get_height();
 
-	Scene& get_current_scene();
-	VillageScene& get_village_scene();
+	std::shared_ptr<Scene> get_current_scene();
+	std::shared_ptr<VillageScene> get_village_scene();
 
 
 	sf::RenderWindow& get_window();
 	AssetsManager &get_assets_manager();
+	GameManager &get_game_manager();
 
 
 

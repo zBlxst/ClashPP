@@ -6,7 +6,9 @@
 #include "GameManager.hpp"
 
 
-GoldTank::GoldTank(Village &village, GameManager &game_manager) : Tank(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_gold_tank_texture()) {}
+GoldTank::GoldTank(Village &village, GameManager &game_manager) : Tank(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_gold_tank_texture()) {
+	m_class_id = Building::GOLDTANK_ID;
+}
 
 float GoldTank::get_gold_tank_capacity() {
 	return m_capacity;

@@ -12,6 +12,7 @@
 
 ManaMill::ManaMill(Village &village, GameManager &game_manager) : 
 		ResourceGenerator(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_mana_mill_texture()) {
+	m_class_id = Building::MANAMILL_ID;
 	add_button(std::make_shared<CollectManaButton>(*this, game_manager));
 }
 

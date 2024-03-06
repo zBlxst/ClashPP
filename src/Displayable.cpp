@@ -5,7 +5,7 @@
 
 
 Displayable::Displayable(WindowManager &window_manager, sf::Texture &texture, bool visible) : 
-	m_position_x(0), m_position_y(0), m_size_x(0), m_size_y(0), m_visible(visible), m_window_manager(window_manager) {
+	m_position_x(0), m_position_y(0), m_size_x(0), m_size_y(0), m_visible(visible), m_window_manager(window_manager), m_texture(texture) {
 	m_sprite.setTexture(texture);
 }
 
@@ -32,6 +32,11 @@ void Displayable::move(int x, int y) {
 bool Displayable::get_visible() {
 	return m_visible;
 }
+
 void Displayable::set_visible(bool value) {
 	m_visible = value;
+}
+
+sf::Texture& Displayable::get_texture() {
+	return m_texture;
 }

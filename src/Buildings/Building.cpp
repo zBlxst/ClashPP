@@ -24,6 +24,11 @@ int Building::get_id() {
 	return m_id;
 }
 
+int Building::get_class_id() {
+	return m_class_id;
+}
+
+
 float Building::get_gold_tank_capacity() {
 	return 0;
 }
@@ -104,14 +109,14 @@ void Building::update_sprite() {
 
 void Building::add_button(std::shared_ptr<BuildingButton> button) {
 	m_buttons.push_back(button);
-	m_game_manager.get_window_manager().get_village_scene().add_button(button);
+	m_game_manager.get_window_manager().get_village_scene()->add_button(button);
 }
 
 void Building::on_click() {
-	if (m_village.get_village_scene().get_selected_building_id() == m_id) {
+	if (m_village.get_village_scene()->get_selected_building_id() == m_id) {
 		interact();
 	} else {
-		m_village.get_village_scene().select_building(*this);
+		m_village.get_village_scene()->select_building(*this);
 	}
 }
 

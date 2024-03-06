@@ -4,6 +4,7 @@
 
 TownHall::TownHall(Village &village, GameManager &game_manager) : Building(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_town_hall_texture()), 
 																m_cost(0) {
+	m_class_id = Building::TOWNHALL_ID;
 	m_size_in_blocks = TownHall::SIZE;
 	m_level = 1;
 	m_level_max = TownHall::MAX_LEVEL;

@@ -28,15 +28,23 @@ override SRC :=	\
 		\
 		src/Scenes/Scene.cpp \
 		src/Scenes/VillageScene.cpp \
+		src/Scenes/ShopScene.cpp \
 		\
 		src/Buttons/Button.cpp \
+		src/Buttons/OpenShopButton.cpp \
 		src/Buttons/BuildingButtons/BuildingButton.cpp \
 		src/Buttons/BuildingButtons/UpgradeButton.cpp \
 		src/Buttons/BuildingButtons/InfoButton.cpp \
 		src/Buttons/BuildingButtons/CollectResourceButton.cpp \
 		src/Buttons/BuildingButtons/CollectGoldButton.cpp \
 		src/Buttons/BuildingButtons/CollectManaButton.cpp \
-
+		\
+		src/Buttons/CreateBuildingButtons/CreateBuildingButton.cpp \
+		src/Buttons/CreateBuildingButtons/CreateGoldTankButton.cpp \
+		src/Buttons/CreateBuildingButtons/CreateGoldMineButton.cpp \
+		src/Buttons/CreateBuildingButtons/CreateManaMillButton.cpp \
+		src/Buttons/CreateBuildingButtons/CreateManaTankButton.cpp \
+		src/Buttons/CreateBuildingButtons/CreateTownHallButton.cpp \
 
 		
 

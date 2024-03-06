@@ -5,13 +5,19 @@
 #include "Buildings/TownHall.hpp"
 #include "GameManager.hpp"
 
-Village::Village(GameManager &game_manager, VillageScene &village_scene) : 	
+Village::Village(GameManager &game_manager, std::shared_ptr<VillageScene> village_scene) : 	
 				m_game_manager(game_manager),
 				m_buildings(std::vector<std::shared_ptr<Building>>()), 
 				m_resources_manager(*this), m_village_scene(village_scene) {}
 
-void Village::add_building(std::shared_ptr<Building> b) {
-	m_buildings.push_back(b);
+void Village::add_building(std::shared_ptr<Building> building) {
+	m_buildings.push_back(building);
+	m_village_scene->add_displayable(building);
+	m_village_scene->add_clickable(building);
+	find_free_room(*building);
+	building->lock_position();
+	building->level_up();
+	building->update_sprite();
 	update();	
 }
 
@@ -60,6 +66,6 @@ void Village::find_free_room(Building &building) {
 	}
 }
 
-VillageScene& Village::get_village_scene() {
+std::shared_ptr<VillageScene> Village::get_village_scene() {
 	return m_village_scene;
 }

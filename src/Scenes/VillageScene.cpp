@@ -6,17 +6,19 @@
 
 #include "Buildings/Building.hpp"
 
-#include "Buildings/Building.hpp"
 #include "Buildings/GoldTank.hpp"
 #include "Buildings/GoldMine.hpp"
 #include "Buildings/ManaMill.hpp"
 #include "Buildings/ManaTank.hpp"
 #include "Buildings/TownHall.hpp"
 
+#include "Scenes/ShopScene.hpp"
+
 VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village, bool visible) : Scene(window_manager, visible), m_game_manager(game_manager), 
-							m_village(village), m_selected_building_id(-1) {}
+							m_village(village), m_shop_scene(ShopScene(window_manager, false, village)), m_selected_building_id(-1) {}
 
 void VillageScene::load() {
+	Scene::load();
 	m_text_gold.setFont(m_window_manager.get_assets_manager().get_gold_and_mana_font());
 	m_text_gold.setFillColor(sf::Color::White);
 	m_text_gold.setCharacterSize(24);
@@ -29,28 +31,20 @@ void VillageScene::load() {
 	m_text_mana.move(0.0, m_text_gold.getLocalBounds().height*(3.0/2.0));
 }
 
-void VillageScene::unload() {
-
-}
 
 void VillageScene::display() {
+	Scene::display();
 	m_text_gold.setString("Gold : " + std::to_string((int)m_game_manager.get_village().get_resources_manager().get_gold()) + "/" + std::to_string((int)m_game_manager.get_village().get_resources_manager().get_gold_max()));
 	m_text_mana.setString("Mana : " + std::to_string((int)m_game_manager.get_village().get_resources_manager().get_mana()) + "/" + std::to_string((int)m_game_manager.get_village().get_resources_manager().get_mana_max()));
 
-	m_window_manager.get_window().clear();
-	for (size_t i = 0; i < m_displayables.size(); i++) {
-		m_displayables[i]->update_sprite();
-		m_displayables[i]->display();
-	}
-
 	m_window_manager.get_window().draw(m_text_gold);
 	m_window_manager.get_window().draw(m_text_mana);
-	m_window_manager.get_window().display();
+	
 }
 
 
-void VillageScene::manage_event(sf::Event event) {
-	bool catched = false;
+bool VillageScene::manage_event(sf::Event event) {
+	bool catched = Scene::manage_event(event);
 	if (event.type == sf::Event::KeyPressed) {
 		switch (event.key.code) {
 			case sf::Keyboard::A: 
@@ -78,6 +72,10 @@ void VillageScene::manage_event(sf::Event event) {
 				m_game_manager.get_village().get_resources_manager().add_mana(10000000000000000);
 				catched = true;
 				break;
+			case sf::Keyboard::S:
+				open_shop();
+				catched = true;
+				break;
 			default:
 				break;	
 		}
@@ -85,13 +83,6 @@ void VillageScene::manage_event(sf::Event event) {
 	} else if (event.type == sf::Event::MouseButtonPressed) {
 		switch (event.mouseButton.button) {
 			case sf::Mouse::Left:
-				for (size_t i = 0; i < m_clickables.size(); i++) {
-					if (m_clickables[i]->is_clicked(event.mouseButton.x, event.mouseButton.y)) {
-						m_clickables[i]->on_click();
-						catched = true;
-						break;
-					}
-				}
 				if (!catched) {
 					unselect_building();
 				}
@@ -101,6 +92,7 @@ void VillageScene::manage_event(sf::Event event) {
 
 		}
 	}
+	return catched;
 }
 
 int VillageScene::get_selected_building_id() {
@@ -121,4 +113,13 @@ void VillageScene::unselect_building() {
 		}
 	}
 	m_selected_building_id = -1;
+}
+
+void VillageScene::open_shop() {
+	m_scene_above = std::make_shared<ShopScene>(m_shop_scene);
+	m_scene_above->load(this->shared_from_this());
+}
+
+Village& VillageScene::get_village() {
+	return m_village;
 }

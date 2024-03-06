@@ -5,7 +5,9 @@
 
 #include "GameManager.hpp"
 
-ManaTank::ManaTank(Village &village, GameManager &game_manager) : Tank(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_mana_tank_texture()) {}
+ManaTank::ManaTank(Village &village, GameManager &game_manager) : Tank(village, game_manager, game_manager.get_window_manager().get_assets_manager().get_mana_tank_texture()) {
+	m_class_id = Building::MANATANK_ID;
+}
 
 float ManaTank::get_mana_tank_capacity() {
 	return m_capacity;

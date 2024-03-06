@@ -16,12 +16,12 @@ protected:
 
 	WindowManager &m_window_manager;
 	sf::Sprite m_sprite;
-
+	sf::Texture &m_texture;
 
 
 public:
 	Displayable(WindowManager &window_manager, sf::Texture &texture, bool visible);
-	void display();
+	virtual void display();
 	virtual void update_sprite();
 
 	virtual bool is_position_relative() = 0;
@@ -29,6 +29,10 @@ public:
 
 	bool get_visible();
 	void set_visible(bool value);
+
+	sf::Texture& get_texture();
+
+
 
 
 

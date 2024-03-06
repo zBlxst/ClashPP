@@ -20,6 +20,7 @@ class Building : public Clickable {
 protected:
 
 	int m_id;
+	int m_class_id;
 
 	GameManager &m_game_manager;
 	Village &m_village;
@@ -45,6 +46,11 @@ protected:
 
 public:
 
+	static constexpr int TOWNHALL_ID = 0;
+	static constexpr int GOLDMINE_ID = 1;
+	static constexpr int GOLDTANK_ID = 2;
+	static constexpr int MANAMILL_ID = 3;
+	static constexpr int MANATANK_ID = 4;
 
 	static int max_id;
 
@@ -54,6 +60,7 @@ public:
 	int m_ghost_position_in_village_j; 
 
 	int get_id();
+	int get_class_id();
 
 
 	virtual float get_gold_tank_capacity();
