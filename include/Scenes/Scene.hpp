@@ -8,6 +8,7 @@ class WindowManager;
 class Displayable;
 class Clickable;
 class Button;
+class CloseSceneButton;
 
 class Scene : public std::enable_shared_from_this<Scene> {
 
@@ -17,10 +18,19 @@ protected:
 	std::shared_ptr<Scene> m_scene_above; // Linked list of scene 
 	std::shared_ptr<Scene> m_scene_behind;
 
+	int m_pos_x;
+	int m_pos_y;
+
+	int m_width;
+	int m_height;
+
 	WindowManager &m_window_manager;
 
+	std::vector<std::shared_ptr<Button>> m_buttons;
 	std::vector<std::shared_ptr<Displayable>> m_displayables;
 	std::vector<std::shared_ptr<Clickable>> m_clickables;
+
+	std::shared_ptr<CloseSceneButton> m_close_scene_button;
 
 	bool m_visible;
 
@@ -49,6 +59,12 @@ public:
 
 	virtual bool manage_event(sf::Event event);
 	void recv_event(sf::Event event);
+
+	int get_width();
+	int get_height();
+
+	int get_pos_x();
+	int get_pos_y();
 
 
 };

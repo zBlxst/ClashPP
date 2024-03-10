@@ -12,9 +12,11 @@ private:
 
 
 public:
-	OpenShopButton(WindowManager &window_manager, sf::Texture texture, VillageScene &m_village_scene);
+	OpenShopButton(WindowManager &window_manager, VillageScene &m_village_scene);
 
+	void update_sprite();
 	void on_click();
+	void load();
 
 
 

@@ -5,8 +5,13 @@
 
 
 Displayable::Displayable(WindowManager &window_manager, sf::Texture &texture, bool visible) : 
-	m_position_x(0), m_position_y(0), m_size_x(0), m_size_y(0), m_visible(visible), m_window_manager(window_manager), m_texture(texture) {
-	m_sprite.setTexture(texture);
+	m_position_x(0), m_position_y(0), m_size_x(0), m_size_y(0), m_is_debugging(false), m_visible(visible), m_window_manager(window_manager), m_texture(texture) {
+
+	reload_texture();
+}
+
+void Displayable::reload_texture() {
+	m_sprite.setTexture(m_texture);
 }
 
 void Displayable::update_sprite() {
@@ -17,6 +22,10 @@ void Displayable::update_sprite() {
 }
 
 void Displayable::display() {
+	if (m_is_debugging) {
+		std::cout << "Position : " << m_position_x << " " << m_position_y << std::endl;
+		std::cout << "Size : " << m_size_x << " " << m_size_y << std::endl;
+	}
 	if (m_visible) {
 		m_sprite.setPosition(m_position_x, m_position_y);
 		sf::RenderWindow &window = m_window_manager.get_window();

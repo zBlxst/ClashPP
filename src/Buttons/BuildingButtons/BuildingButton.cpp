@@ -20,6 +20,6 @@ void BuildingButton::update_sprite() {
 void BuildingButton::load(int rank, int amount) {
 	int base = (int)(0.5*m_window_manager.get_width()) - (int)((0.5+amount-1)*m_size_x);
 	m_position_x = base + 2*rank*m_size_x;
-	m_position_y = m_window_manager.get_height() - (int)(3/2*m_size_y);
+	m_position_y = m_window_manager.get_height() - (int)(3*m_size_y/2);
 	Button::load();
 }

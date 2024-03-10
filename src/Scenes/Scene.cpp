@@ -3,11 +3,12 @@
 #include "Displayable.hpp"
 #include "Clickable.hpp"
 #include "Buttons/Button.hpp"
+#include "Buttons/CloseSceneButton.hpp"
 
 #include <iostream>
 
 Scene::Scene(WindowManager &window_manager, bool visible) : 
-		m_id(Scene::max_id++), m_scene_above(nullptr), m_scene_behind(nullptr), m_window_manager(window_manager), m_visible(visible) {}
+		m_id(Scene::max_id++), m_scene_above(nullptr), m_scene_behind(nullptr), m_pos_x(0), m_pos_y(0), m_width(0), m_height(0), m_window_manager(window_manager), m_visible(visible) {}
 
 void Scene::add_displayable(std::shared_ptr<Displayable> displayable) {
 	m_displayables.push_back(displayable);
@@ -18,6 +19,7 @@ void Scene::add_clickable(std::shared_ptr<Clickable> clickable) {
 }
 
 void Scene::add_button(std::shared_ptr<Button> button) {
+	m_buttons.push_back(button);
 	add_clickable(button);
 	add_displayable(button);
 }
@@ -94,9 +96,30 @@ void Scene::unload() {
 	}
 }
 
-void Scene::load() {}
+void Scene::load() {
+	if (m_close_scene_button == nullptr) {
+		m_close_scene_button = std::make_shared<CloseSceneButton>(m_window_manager, *this);
+		add_button(m_close_scene_button);
+	}
+}
 
 void Scene::load(std::shared_ptr<Scene> behind) {
-	load();
 	m_scene_behind = behind;
+	load();
+}
+
+int Scene::get_width() {
+	return m_width;
+}
+
+int Scene::get_height() {
+	return m_height;
+}
+
+int Scene::get_pos_x() {
+	return m_pos_x;
+}
+
+int Scene::get_pos_y() {
+	return m_pos_y;
 }

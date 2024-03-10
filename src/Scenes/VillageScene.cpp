@@ -12,13 +12,22 @@
 #include "Buildings/ManaTank.hpp"
 #include "Buildings/TownHall.hpp"
 
+
 #include "Scenes/ShopScene.hpp"
+#include "Buttons/OpenShopButton.hpp"
 
 VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village, bool visible) : Scene(window_manager, visible), m_game_manager(game_manager), 
-							m_village(village), m_shop_scene(ShopScene(window_manager, false, village)), m_selected_building_id(-1) {}
+							m_village(village), m_shop_scene(ShopScene(window_manager, false, village)),
+							m_selected_building_id(-1) {
+
+}
 
 void VillageScene::load() {
 	Scene::load();
+	m_pos_x = 0;
+	m_pos_y = 0;
+	m_width = m_window_manager.get_width();
+	m_height = m_window_manager.get_height();
 	m_text_gold.setFont(m_window_manager.get_assets_manager().get_gold_and_mana_font());
 	m_text_gold.setFillColor(sf::Color::White);
 	m_text_gold.setCharacterSize(24);
@@ -29,7 +38,15 @@ void VillageScene::load() {
 	m_text_mana.setCharacterSize(24);
 	m_text_mana.setString("Mana : " + std::to_string((int)m_game_manager.get_village().get_resources_manager().get_mana()));
 	m_text_mana.move(0.0, m_text_gold.getLocalBounds().height*(3.0/2.0));
+
+	if (m_open_shop_button == nullptr) {
+		m_open_shop_button = std::make_shared<OpenShopButton>(m_window_manager, *this);
+		add_button(m_open_shop_button);
+		m_open_shop_button->load();
+	}
 }
+
+
 
 
 void VillageScene::display() {
@@ -39,7 +56,7 @@ void VillageScene::display() {
 
 	m_window_manager.get_window().draw(m_text_gold);
 	m_window_manager.get_window().draw(m_text_mana);
-	
+
 }
 
 
@@ -70,10 +87,6 @@ bool VillageScene::manage_event(sf::Event event) {
 			case sf::Keyboard::R:
 				m_game_manager.get_village().get_resources_manager().add_gold(10000000000000000);
 				m_game_manager.get_village().get_resources_manager().add_mana(10000000000000000);
-				catched = true;
-				break;
-			case sf::Keyboard::S:
-				open_shop();
 				catched = true;
 				break;
 			default:

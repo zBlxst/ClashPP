@@ -21,6 +21,7 @@ public:
 	ShopScene(WindowManager &window_manager, bool visible, Village &m_village);
 	void display_background();
 	void display();
+	void load(std::shared_ptr<Scene> behind);
 	void load();
 	void create_create_buttons(); // No typo here
 

@@ -12,6 +12,8 @@ protected:
 	int m_size_x;
 	int m_size_y;
 
+	bool m_is_debugging;
+
 	bool m_visible;
 
 	WindowManager &m_window_manager;
@@ -23,6 +25,7 @@ public:
 	Displayable(WindowManager &window_manager, sf::Texture &texture, bool visible);
 	virtual void display();
 	virtual void update_sprite();
+	void reload_texture();
 
 	virtual bool is_position_relative() = 0;
 	void move(int x, int y);

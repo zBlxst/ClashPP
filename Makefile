@@ -32,6 +32,8 @@ override SRC :=	\
 		\
 		src/Buttons/Button.cpp \
 		src/Buttons/OpenShopButton.cpp \
+		src/Buttons/CloseSceneButton.cpp \
+		\
 		src/Buttons/BuildingButtons/BuildingButton.cpp \
 		src/Buttons/BuildingButtons/UpgradeButton.cpp \
 		src/Buttons/BuildingButtons/InfoButton.cpp \

@@ -18,6 +18,8 @@ private:
 	sf::Texture m_collect_gold_texture;
 	sf::Texture m_collect_mana_texture;
 
+	sf::Texture m_close_scene_texture;
+
 public:
 	AssetsManager();
 
@@ -32,6 +34,7 @@ public:
 	sf::Texture& get_building_info_texture();
 	sf::Texture& get_collect_gold_texture();
 	sf::Texture& get_collect_mana_texture();
+	sf::Texture& get_close_scene_texture();
 
 
 };

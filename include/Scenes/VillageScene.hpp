@@ -11,6 +11,7 @@ class WindowManager;
 class GameManager;
 class Building;
 class Village;
+class OpenShopButton;
 
 class VillageScene : public Scene {
 
@@ -19,7 +20,7 @@ private:
 	Village &m_village;
 
 	ShopScene m_shop_scene;
-
+	std::shared_ptr<OpenShopButton> m_open_shop_button;
 
 	sf::Text m_text_gold;
 	sf::Text m_text_mana;
