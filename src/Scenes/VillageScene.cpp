@@ -17,17 +17,14 @@
 #include "Buttons/OpenShopButton.hpp"
 
 VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village, bool visible) : Scene(window_manager, visible), m_game_manager(game_manager), 
-							m_village(village), m_shop_scene(ShopScene(window_manager, false, village)),
+							m_village(village), m_shop_scene(std::make_shared<ShopScene>(window_manager, false, village)),
 							m_selected_building_id(-1) {
 
 }
 
 void VillageScene::load() {
+	set_pos_and_size(m_scene_behind);
 	Scene::load();
-	m_pos_x = 0;
-	m_pos_y = 0;
-	m_width = m_window_manager.get_width();
-	m_height = m_window_manager.get_height();
 	m_text_gold.setFont(m_window_manager.get_assets_manager().get_gold_and_mana_font());
 	m_text_gold.setFillColor(sf::Color::White);
 	m_text_gold.setCharacterSize(24);
@@ -108,6 +105,13 @@ bool VillageScene::manage_event(sf::Event event) {
 	return catched;
 }
 
+void VillageScene::set_pos_and_size(std::shared_ptr<Scene> behind) {
+	m_pos_x = 0;
+	m_pos_y = 0;
+	m_width = m_window_manager.get_width();
+	m_height = m_window_manager.get_height();
+}
+
 int VillageScene::get_selected_building_id() {
 	return m_selected_building_id;
 }
@@ -129,7 +133,7 @@ void VillageScene::unselect_building() {
 }
 
 void VillageScene::open_shop() {
-	m_scene_above = std::make_shared<ShopScene>(m_shop_scene);
+	m_scene_above = m_shop_scene;
 	m_scene_above->load(this->shared_from_this());
 }
 

@@ -38,6 +38,20 @@ void Displayable::move(int x, int y) {
 	m_position_y = y;
 }
 
+
+void Displayable::resize(int x, int y) {
+	m_size_x = x;
+	m_size_y = y;
+}
+
+int Displayable::get_width() {
+	return m_size_x;
+}
+
+int Displayable::get_height() {
+	return m_size_y;
+}
+
 bool Displayable::get_visible() {
 	return m_visible;
 }

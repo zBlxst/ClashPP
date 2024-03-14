@@ -10,7 +10,7 @@ class Clickable;
 class Button;
 class CloseSceneButton;
 
-class Scene : public std::enable_shared_from_this<Scene> {
+class Scene {
 
 protected:
 	int m_id;
@@ -56,6 +56,8 @@ public:
 	bool is_on_bottom();
 	void back_on_top();
 	int get_id();
+
+	virtual void set_pos_and_size(std::shared_ptr<Scene> behind) = 0;
 
 	virtual bool manage_event(sf::Event event);
 	void recv_event(sf::Event event);

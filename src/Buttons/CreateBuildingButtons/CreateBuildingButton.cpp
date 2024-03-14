@@ -11,3 +11,7 @@ CreateBuildingButton::CreateBuildingButton(GameManager &game_manager, sf::Textur
 	move(100, 100);
 	update_sprite();
 }
+
+int CreateBuildingButton::get_class_id() {
+	return m_class_id;
+}

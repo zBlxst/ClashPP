@@ -20,6 +20,9 @@ private:
 
 	sf::Texture m_close_scene_texture;
 
+	sf::Texture m_left_arrow_texture;
+	sf::Texture m_right_arrow_texture;
+
 public:
 	AssetsManager();
 
@@ -36,5 +39,7 @@ public:
 	sf::Texture& get_collect_mana_texture();
 	sf::Texture& get_close_scene_texture();
 
+	sf::Texture& get_left_arrow_texture();
+	sf::Texture& get_right_arrow_texture();
 
 };

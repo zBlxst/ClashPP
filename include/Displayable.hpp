@@ -29,6 +29,10 @@ public:
 
 	virtual bool is_position_relative() = 0;
 	void move(int x, int y);
+	void resize(int x, int y);
+
+	int get_width();
+	int get_height();
 
 	bool get_visible();
 	void set_visible(bool value);

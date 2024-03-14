@@ -15,4 +15,5 @@ protected:
 
 public:
 	CreateBuildingButton(GameManager &game_manager, sf::Texture &texture, Village &village, int class_id);
+	int get_class_id();
 };

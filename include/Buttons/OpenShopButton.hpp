@@ -12,7 +12,7 @@ private:
 
 
 public:
-	OpenShopButton(WindowManager &window_manager, VillageScene &m_village_scene);
+	OpenShopButton(WindowManager &window_manager, VillageScene &village_scene);
 
 	void update_sprite();
 	void on_click();
