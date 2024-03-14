@@ -28,6 +28,11 @@ void Village::update() {
 	m_resources_manager.update_max_resources();
 }
 
+bool Village::can_afford(int gold, int mana) {
+	return 	m_resources_manager.get_gold() >= gold and 
+			m_resources_manager.get_mana() >= mana;
+}
+
 
 std::vector<std::shared_ptr<Building>>& Village::get_buildings() {
 	return m_buildings;
@@ -68,4 +73,22 @@ void Village::find_free_room(Building &building) {
 
 std::shared_ptr<VillageScene> Village::get_village_scene() {
 	return m_village_scene;
+}
+
+int Village::count_building_class(int class_id) {
+	int count = 0;
+	for (size_t i = 0; i < m_buildings.size(); i++) {
+		if (m_buildings[i]->get_class_id() == class_id) {
+			count++;
+		}
+	}
+	return count;
+}
+
+void Village::buy(std::shared_ptr<Building> building) {
+	if (can_afford(building->get_gold_cost(0), building->get_mana_cost(0))) {
+		m_resources_manager.add_gold(-building->get_gold_cost(0));
+		m_resources_manager.add_mana(-building->get_mana_cost(0));
+		add_building(building);
+	}
 }

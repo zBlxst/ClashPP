@@ -12,5 +12,4 @@ class CreateGoldMineButton : public CreateBuildingButton {
 public:
 	CreateGoldMineButton(GameManager &game_manager, Village &village);
 	void on_click();
-
 };

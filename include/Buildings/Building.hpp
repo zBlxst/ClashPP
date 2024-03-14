@@ -68,6 +68,8 @@ public:
 
 	virtual float get_gold_cost();
 	virtual float get_mana_cost();
+	virtual float get_gold_cost(int level);
+	virtual float get_mana_cost(int level);
 
 	virtual void level_up();
 	int get_level();

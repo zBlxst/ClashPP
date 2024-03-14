@@ -17,6 +17,11 @@ float ManaTank::get_gold_cost() {
 	return m_cost;
 }
 
+float ManaTank::get_gold_cost(int level) {
+	return COSTS[level];
+}
+
+
 void ManaTank::print_infos() {
 	Tank::print_infos();
 	std::cout << "\tMana capacity : " << m_capacity << std::endl;

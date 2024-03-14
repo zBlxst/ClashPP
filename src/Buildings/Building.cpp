@@ -45,6 +45,14 @@ float Building::get_mana_cost() {
 	return 0;
 }
 
+float Building::get_gold_cost(int level) {
+	return 0;
+}
+
+float Building::get_mana_cost(int level) {
+	return 0;
+}
+
 int Building::get_level() {
 	return m_level;
 }
@@ -75,8 +83,7 @@ void Building::on_unselect() {
 }
 
 bool Building::can_upgrade() {
-	return 	m_village.get_resources_manager().get_gold() >= get_gold_cost() and 
-			m_village.get_resources_manager().get_mana() >= get_mana_cost() and
+	return 	m_village.can_afford(get_gold_cost(), get_mana_cost()) and
 			m_level < m_level_max and
 			!m_upgrading;
 }

@@ -1,3 +1,6 @@
 target/
 main
 .vscode/
+.gdb_history
+.gitignore
+peda-session-main.txt

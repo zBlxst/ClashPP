@@ -28,6 +28,11 @@ float ManaMill::get_gold_cost() {
 	return m_cost;
 }
 
+float ManaMill::get_gold_cost(int level) {
+	return COSTS[level];
+}
+
+
 void ManaMill::update_stats() {
 	ResourceGenerator::update_stats();
 }

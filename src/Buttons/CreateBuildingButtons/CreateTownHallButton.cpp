@@ -5,8 +5,9 @@
 #include "Buildings/Building.hpp"
 
 CreateTownHallButton::CreateTownHallButton(GameManager &game_manager, Village &village) : 
-		CreateBuildingButton(game_manager, game_manager.get_window_manager().get_assets_manager().get_town_hall_texture(), village, Building::TOWNHALL_ID) {}
+		CreateBuildingButton(game_manager, game_manager.get_window_manager().get_assets_manager().get_town_hall_texture(), village, Building::TOWNHALL_ID, TownHall::MAX_OCCURENCES,
+			TownHall::COSTS[0], 0) {}
 
 void CreateTownHallButton::on_click() {
-	m_village.add_building(std::make_shared<TownHall>(m_village, m_game_manager));
+	m_village.buy(std::make_shared<TownHall>(m_village, m_game_manager));
 }

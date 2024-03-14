@@ -75,6 +75,9 @@ void ShopScene::display_background() {
 }
 
 void ShopScene::load() {
+	for (size_t i = 0; i < m_displayables.size(); i++) {
+		m_displayables[i]->update_sprite();
+	}
 	Scene::load();
 	m_close_scene_button->load();
 	m_left_button->load();

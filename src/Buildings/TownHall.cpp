@@ -17,6 +17,11 @@ float TownHall::get_gold_cost() {
 	return m_cost;
 }
 
+float TownHall::get_gold_cost(int level) {
+	return COSTS[level];
+}
+
+
 std::string TownHall::get_class_name() {
 	return "TownHall";
 }

@@ -15,6 +15,7 @@ public:
 	float get_mana_production();
 	float get_mana_capacity();
 	float get_gold_cost();
+	float get_gold_cost(int level);
 
 
 	virtual void update_stats();

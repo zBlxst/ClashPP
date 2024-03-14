@@ -16,9 +16,13 @@ void Displayable::reload_texture() {
 
 void Displayable::update_sprite() {
 	sf::FloatRect bounds = m_sprite.getGlobalBounds();
-	float scale_x = (float)m_size_x/bounds.width;
-	float scale_y = (float)m_size_y/bounds.height;
-	m_sprite.scale(scale_x, scale_y);
+	if (m_size_x != 0 and m_size_y != 0) {
+		float scale_x = (float)m_size_x/bounds.width;
+		float scale_y = (float)m_size_y/bounds.height;
+		if (scale_x != 1 or scale_y != 1) printf("%f, %f\n", scale_x, scale_y);
+		m_sprite.scale(scale_x, scale_y);
+	}
+
 }
 
 void Displayable::display() {

@@ -38,5 +38,10 @@ public:
 	bool ghost_intersect(Building &ghost);
 	void find_free_room(Building &building);
 
+	int count_building_class(int class_id);
+	bool can_afford(int gold, int mana);
+	void buy(std::shared_ptr<Building> building);
+
+
 	std::shared_ptr<VillageScene> get_village_scene();
 };

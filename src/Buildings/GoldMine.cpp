@@ -28,6 +28,11 @@ float GoldMine::get_mana_cost() {
 	return m_cost;
 }
 
+float GoldMine::get_mana_cost(int level) {
+	return COSTS[level];
+}
+
+
 void GoldMine::update_stats() {
 	ResourceGenerator::update_stats();
 }
