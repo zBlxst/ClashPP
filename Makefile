@@ -91,7 +91,7 @@ $(NAME): $(OBJ)
 
 # cleans up everything nicely
 clean:
-	$(RM) $(BUILDDIR) $(NAME)
+	$(RM) $(BUILDDIR) $(NAME) peda-session-main.txt .gdb_history
 
 # rules in order to correctly take into account the .hpp files
 $(BUILDDIR)/%.o: override CPPFLAGS += -MT $@ -MMD -MP -MF $(@:.o=.d)

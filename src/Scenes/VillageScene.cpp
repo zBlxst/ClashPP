@@ -16,8 +16,8 @@
 #include "Scenes/ShopScene.hpp"
 #include "Buttons/OpenShopButton.hpp"
 
-VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village, bool visible) : Scene(window_manager, visible), m_game_manager(game_manager), 
-							m_village(village), m_shop_scene(std::make_shared<ShopScene>(window_manager, false, village)),
+VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village) : Scene(window_manager), m_game_manager(game_manager), 
+							m_village(village), m_shop_scene(std::make_shared<ShopScene>(window_manager, village)),
 							m_selected_building_id(-1), m_dragging(false), m_base_drag_x(0), m_base_drag_y(0), m_base_camera_x(0), m_base_camera_y(0), m_dragging_building(false) {
 
 }

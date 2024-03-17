@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-Scene::Scene(WindowManager &window_manager, bool visible) : 
-		m_id(Scene::max_id++), m_scene_above(nullptr), m_scene_behind(nullptr), m_pos_x(0), m_pos_y(0), m_width(0), m_height(0), m_window_manager(window_manager), m_visible(visible) {}
+Scene::Scene(WindowManager &window_manager) : 
+		m_id(Scene::max_id++), m_scene_above(nullptr), m_scene_behind(nullptr), m_pos_x(0), m_pos_y(0), m_width(0), m_height(0), m_window_manager(window_manager) {}
 
 void Scene::add_displayable(std::shared_ptr<Displayable> displayable) {
 	m_displayables.push_back(displayable);

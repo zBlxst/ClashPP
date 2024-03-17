@@ -37,7 +37,7 @@ private:
 
 
 public:
-	VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village, bool visible);
+	VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village);
 
 	void load();
 

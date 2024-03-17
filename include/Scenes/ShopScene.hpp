@@ -26,7 +26,7 @@ private:
 
 
 public:
-	ShopScene(WindowManager &window_manager, bool visible, Village &m_village);
+	ShopScene(WindowManager &window_manager, Village &m_village);
 	void setup();
 	void display_background();
 	void display();

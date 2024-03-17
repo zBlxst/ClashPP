@@ -15,7 +15,7 @@
 #include "Scenes/VillageScene.hpp"
 #include <iostream>
 
-ShopScene::ShopScene(WindowManager &window_manager, bool visible, Village &village) : Scene(window_manager ,visible), m_village(village), m_already_setup(false), m_index(0) {}
+ShopScene::ShopScene(WindowManager &window_manager, Village &village) : Scene(window_manager), m_village(village), m_already_setup(false), m_index(0) {}
 
 void ShopScene::setup() {
 	if (!m_already_setup) {

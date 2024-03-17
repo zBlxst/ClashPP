@@ -32,8 +32,6 @@ protected:
 
 	std::shared_ptr<CloseSceneButton> m_close_scene_button;
 
-	bool m_visible;
-
 	std::shared_ptr<Clickable> m_clickable_under_click;
 
 
@@ -41,7 +39,7 @@ protected:
 
 public:
 	static int max_id;
-	Scene(WindowManager &window_manager, bool visible);
+	Scene(WindowManager &window_manager);
 
 	virtual void load();
 	virtual void load(std::shared_ptr<Scene> behind);
