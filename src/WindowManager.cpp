@@ -17,7 +17,7 @@
 WindowManager::WindowManager(int width, int height, GameManager &game_manager) : m_game_manager(game_manager), m_assets_manager(),
 	m_village_scene(std::make_shared<VillageScene>(*this, game_manager, game_manager.get_village(), true)),
 	m_width(width), m_height(height), m_width_block(width/50), m_height_block(height/50),
-	m_window(sf::RenderWindow(sf::VideoMode(width, height), "This Is The Title !")) {}
+	m_window(sf::RenderWindow(sf::VideoMode(width, height), "This Is The Title !")), m_camera(Camera(0, 0)) {}
 
 void WindowManager::start() {
 	std::cout << "Starting WM" << std::endl;
@@ -82,4 +82,8 @@ void WindowManager::manage_events() {
 			m_current_scene->recv_event(event);
 		}
 	}
+}
+
+Camera& WindowManager::get_camera() {
+	return m_camera;
 }

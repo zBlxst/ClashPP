@@ -73,11 +73,26 @@ bool Scene::manage_event(sf::Event event) {
 			case sf::Mouse::Left:
 				for (size_t i = 0; i < m_clickables.size(); i++) {
 					if (m_clickables[i]->is_clicked(event.mouseButton.x, event.mouseButton.y)) {
-						m_clickables[i]->on_click();
+						m_clickable_under_click = m_clickables[i];
 						catched = true;
 						break;
 					}
 				}
+				break;
+			default:
+				break;
+		}
+	}
+	if (event.type == sf::Event::MouseButtonReleased) {
+		switch (event.mouseButton.button) {
+			case sf::Mouse::Left:
+				if (m_clickable_under_click != nullptr) {
+					if (m_clickable_under_click->is_clicked(event.mouseButton.x, event.mouseButton.y)) {
+						m_clickable_under_click->on_click();
+						catched = true;
+					}
+				}
+				m_clickable_under_click = nullptr;
 				break;
 			default:
 				break;

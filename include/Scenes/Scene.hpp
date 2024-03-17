@@ -34,6 +34,8 @@ protected:
 
 	bool m_visible;
 
+	std::shared_ptr<Clickable> m_clickable_under_click;
+
 
 
 

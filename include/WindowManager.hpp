@@ -8,11 +8,11 @@
 
 #include "Scenes/Scene.hpp"
 #include <Scenes/VillageScene.hpp>
+#include "Camera.hpp"
 
 class GameManager;
 class Displayable;
 class Clickable;
-
 
 
 class WindowManager {
@@ -37,6 +37,8 @@ private:
 	sf::Text m_text_mana;
 
 	sf::RenderWindow m_window;
+	Camera m_camera;
+
 
 public:
 	WindowManager(int width, int height, GameManager &game_manager);
@@ -60,6 +62,7 @@ public:
 	AssetsManager &get_assets_manager();
 	GameManager &get_game_manager();
 
+	Camera &get_camera();
 
 
 

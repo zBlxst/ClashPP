@@ -6,6 +6,8 @@
 #include "Buildings/ManaTank.hpp"
 #include "Buildings/TownHall.hpp"
 
+#include <time.h>
+
 GameManager::GameManager() : 	m_running(false), m_all_threads(std::vector<std::shared_ptr<std::thread>>()),
 							 	m_window_manager(1000, 1000, *this), m_village(Village(*this, m_window_manager.get_village_scene())) {}
 
@@ -31,7 +33,6 @@ void GameManager::start() {
 
 void GameManager::stop() {
 	m_running = false;
-	std::cout << "GameManager is stoping" << std::endl;
 	for (size_t i = 0; i < m_all_threads.size(); i++) {
 		std::cout << "Waiting for thread " << i << std::endl;
 		if (m_all_threads[i]->joinable()) {
@@ -59,10 +60,22 @@ WindowManager &GameManager::get_window_manager() {
 }
 
 void GameManager::main_loop() {
-
+	int count = 0;
+	time_t base = time(NULL);
 	while (m_running) {
 		m_window_manager.manage_events();
 		m_window_manager.display();
+		count += 1;
+		//printf("Elapsed = %ld\n", time(NULL) - base);
+		if (time(NULL) - base >= 1) {
+			printf("\rFPS : %d", count);
+			fflush(stdout);
+			base = time(NULL);
+			count = 0;
+		}
+		
+
+		//printf("\rFPS : %d, %d", end, beg);
 
 	}
 }

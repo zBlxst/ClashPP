@@ -16,6 +16,7 @@ override SRC :=	\
 		src/AssetsManager.cpp \
 		src/Displayable.cpp \
 		src/Clickable.cpp \
+		src/Camera.cpp \
 		\
 		src/Buildings/Building.cpp \
 		src/Buildings/TownHall.cpp \

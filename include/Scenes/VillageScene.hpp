@@ -26,6 +26,14 @@ private:
 	sf::Text m_text_mana;
 
 	int m_selected_building_id;
+	
+	bool m_dragging;
+	int m_base_drag_x;
+	int m_base_drag_y;
+	int m_base_camera_x;
+	int m_base_camera_y;
+
+	bool m_dragging_building;
 
 
 public:
@@ -43,6 +51,7 @@ public:
 	void select_building(Building &building);
 	void unselect_building();
 	Village& get_village();
+	std::shared_ptr<Building> find_building_by_id(int id);
 
 
 };

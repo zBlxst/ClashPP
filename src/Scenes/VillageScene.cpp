@@ -18,7 +18,7 @@
 
 VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village, bool visible) : Scene(window_manager, visible), m_game_manager(game_manager), 
 							m_village(village), m_shop_scene(std::make_shared<ShopScene>(window_manager, false, village)),
-							m_selected_building_id(-1) {
+							m_selected_building_id(-1), m_dragging(false), m_base_drag_x(0), m_base_drag_y(0), m_base_camera_x(0), m_base_camera_y(0), m_dragging_building(false) {
 
 }
 
@@ -54,33 +54,36 @@ void VillageScene::display() {
 	m_window_manager.get_window().draw(m_text_gold);
 	m_window_manager.get_window().draw(m_text_mana);
 
+	if (m_dragging_building) {
+		sf::VertexArray line(sf::Lines, 2);
+		sf::VertexArray col(sf::Lines, 2);
+
+		for (int i = 0; i < Village::SIZE_IN_BLOCKS; i++) {
+			line[0].position.x = -m_window_manager.get_camera().get_x();
+			line[0].position.y =  i * m_window_manager.get_height_block() -m_window_manager.get_camera().get_y();
+			line[1].position.x = (Village::SIZE_IN_BLOCKS - 1) * m_window_manager.get_width_block() -m_window_manager.get_camera().get_x();
+			line[1].position.y =  i * m_window_manager.get_height_block() -m_window_manager.get_camera().get_y();
+			
+			col[0].position.x =  i * m_window_manager.get_width_block() -m_window_manager.get_camera().get_x();
+			col[0].position.y = -m_window_manager.get_camera().get_y();
+			col[1].position.x =  i * m_window_manager.get_width_block() -m_window_manager.get_camera().get_x();
+			col[1].position.y = (Village::SIZE_IN_BLOCKS - 1) * m_window_manager.get_height_block() - m_window_manager.get_camera().get_y();
+			
+
+
+			m_window_manager.get_window().draw(line);
+			m_window_manager.get_window().draw(col);
+			//find_building_by_id(m_selected_building_id)->display_ghost();
+		}
+	}
+
 }
 
 
 bool VillageScene::manage_event(sf::Event event) {
 	bool catched = Scene::manage_event(event);
 	if (event.type == sf::Event::KeyPressed) {
-		switch (event.key.code) {
-			case sf::Keyboard::A: 
-				m_game_manager.create_building<TownHall>();
-				catched = true;
-				break;
-			case sf::Keyboard::B:
-				m_game_manager.create_building<GoldTank>();
-				catched = true;
-				break;
-			case sf::Keyboard::C:
-				m_game_manager.create_building<GoldMine>();
-				catched = true;
-				break;
-			case sf::Keyboard::D:
-				m_game_manager.create_building<ManaMill>();
-				catched = true;
-				break;
-			case sf::Keyboard::E:
-				m_game_manager.create_building<ManaTank>();
-				catched = true;
-				break;
+		switch (event.key.code) {			
 			case sf::Keyboard::R:
 				m_game_manager.get_village().get_resources_manager().add_gold(10000000000000000);
 				m_game_manager.get_village().get_resources_manager().add_mana(10000000000000000);
@@ -92,13 +95,53 @@ bool VillageScene::manage_event(sf::Event event) {
 
 	} else if (event.type == sf::Event::MouseButtonPressed) {
 		switch (event.mouseButton.button) {
+			case sf::Mouse::Right:
+				if (find_building_by_id(m_selected_building_id) != nullptr && find_building_by_id(m_selected_building_id)->is_clicked(event.mouseButton.x, event.mouseButton.y)) {
+						m_dragging_building = true;
+						find_building_by_id(m_selected_building_id)->start_moving();
+						m_base_drag_x = event.mouseButton.x;
+						m_base_drag_y = event.mouseButton.y;
+				} else {
+					m_dragging = true;
+					m_base_drag_x = event.mouseButton.x;
+					m_base_drag_y = event.mouseButton.y;
+					m_base_camera_x = m_window_manager.get_camera().get_x();
+					m_base_camera_y = m_window_manager.get_camera().get_y();
+				}
+				break;
+			default:
+				break;
+
+		}
+	} else if (event.type == sf::Event::MouseButtonReleased) {
+		switch (event.mouseButton.button) {
 			case sf::Mouse::Left:
 				if (!catched) {
 					unselect_building();
 				}
 				break;
+			case sf::Mouse::Right:
+				if (m_dragging) {
+					m_dragging = false;
+				}
+				if (m_dragging_building) {
+					m_dragging_building = false;
+					find_building_by_id(m_selected_building_id)->stop_moving();
+					find_building_by_id(m_selected_building_id)->lock_position();
+				}
+				break;
 			default:
 				break;
+
+		}
+	} else if (event.type == sf::Event::MouseMoved) {
+		if (m_dragging) {
+			m_window_manager.get_camera().move(m_base_camera_x - event.mouseMove.x + m_base_drag_x, m_base_camera_y - event.mouseMove.y + m_base_drag_y);
+		}
+		if (m_dragging_building) {
+			std::shared_ptr<Building> building = find_building_by_id(m_selected_building_id);
+			building->set_ghost_position_in_village(building->get_position_in_village_i() + (event.mouseMove.x - m_base_drag_x) / m_window_manager.get_width_block(),
+													building->get_position_in_village_j() + (event.mouseMove.y - m_base_drag_y) / m_window_manager.get_height_block());
 
 		}
 	}
@@ -122,12 +165,19 @@ void VillageScene::select_building(Building &building) {
 	building.on_select();
 }
 
-void VillageScene::unselect_building() {
+std::shared_ptr<Building> VillageScene::find_building_by_id(int id) {
 	std::vector<std::shared_ptr<Building>> all_buildings = m_village.get_buildings();
 	for (size_t i = 0; i < all_buildings.size(); i++) {
-		if (all_buildings[i]->get_id() == m_selected_building_id) {
-			all_buildings[i]->on_unselect();
+		if (all_buildings[i]->get_id() == id) {
+			return all_buildings[i];
 		}
+	}
+	return nullptr;
+}
+
+void VillageScene::unselect_building() {
+	if (find_building_by_id(m_selected_building_id) != nullptr) {
+		find_building_by_id(m_selected_building_id)->on_unselect();
 	}
 	m_selected_building_id = -1;
 }

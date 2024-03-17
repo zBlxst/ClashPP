@@ -32,6 +32,9 @@ protected:
 	int m_position_in_village_i;
 	int m_position_in_village_j;
 
+	bool m_moving;
+	bool m_selected;
+
 	bool m_upgrading;
 	double m_upgrade_time;
 	double m_upgrade_step;
@@ -61,6 +64,10 @@ public:
 
 	int get_id();
 	int get_class_id();
+
+	void display_ghost();
+	void display();
+	bool can_lock();
 
 
 	virtual float get_gold_tank_capacity();
@@ -96,7 +103,8 @@ public:
 
 	int get_position_in_village_i();
 	int get_position_in_village_j();
-	void set_position_in_village();
+	void set_position_in_village(int i, int j);
+	void set_ghost_position_in_village(int i, int j);
 	void lock_position();
 
 
@@ -109,6 +117,8 @@ public:
 
 
 	bool is_position_relative();
+	void start_moving();
+	void stop_moving();
 
 };
 

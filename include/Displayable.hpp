@@ -12,8 +12,6 @@ protected:
 	int m_size_x;
 	int m_size_y;
 
-	bool m_is_debugging;
-
 	bool m_visible;
 
 	WindowManager &m_window_manager;

@@ -11,7 +11,8 @@
 #include <chrono>
 
 Building::Building(Village &village, GameManager &game_manager, sf::Texture &texture) : Clickable(game_manager.get_window_manager(), texture, true, true), m_id(Building::max_id++),
-	m_game_manager(game_manager), m_village(village), m_level(0), m_level_max(0), m_size_in_blocks(0), m_position_in_village_i(0), m_position_in_village_j(0), m_upgrading(false) {
+	m_game_manager(game_manager), m_village(village), m_level(0), m_level_max(0), m_size_in_blocks(0), m_position_in_village_i(0), m_position_in_village_j(0), 
+	m_moving(false), m_selected(false), m_upgrading(false) {
 	
 	add_button(std::make_shared<InfoButton>(*this, game_manager));
 	add_button(std::make_shared<UpgradeButton>(*this, game_manager));
@@ -19,6 +20,40 @@ Building::Building(Village &village, GameManager &game_manager, sf::Texture &tex
 	update_stats();
 }
 
+void Building::display() {
+	if (!m_moving) {
+		Displayable::display();
+	} else {
+		display_ghost();
+	}
+
+	if (m_selected and m_visible) {
+		int pos_x = m_position_x - m_window_manager.get_camera().get_x() + (m_ghost_position_in_village_i - m_position_in_village_i)*m_game_manager.get_window_manager().get_width_block();
+		int pos_y = m_position_y - m_window_manager.get_camera().get_y() + (m_ghost_position_in_village_j - m_position_in_village_j)*m_game_manager.get_window_manager().get_height_block();
+	
+		sf::RectangleShape rectangle;
+		rectangle.setPosition(sf::Vector2f(pos_x, pos_y));
+		rectangle.setSize(sf::Vector2f(get_width(), get_height()));
+		if (m_moving) {
+			if (can_lock()) {
+				rectangle.setFillColor(sf::Color(0, 255, 0, 100));
+			} else {
+				rectangle.setFillColor(sf::Color(255, 0, 0, 100));
+			}
+		} else {
+			rectangle.setFillColor(sf::Color(255, 255, 255, 100));
+		}
+		m_window_manager.get_window().draw(rectangle);
+	}
+}
+
+void Building::display_ghost() {
+	int pos_x = m_position_x - m_window_manager.get_camera().get_x() + (m_ghost_position_in_village_i - m_position_in_village_i)*m_game_manager.get_window_manager().get_width_block();
+	int pos_y = m_position_y - m_window_manager.get_camera().get_y() + (m_ghost_position_in_village_j - m_position_in_village_j)*m_game_manager.get_window_manager().get_height_block();
+	m_sprite.setPosition(pos_x, pos_y);
+	m_window_manager.get_window().draw(m_sprite);
+
+}
 
 int Building::get_id() {
 	return m_id;
@@ -72,11 +107,13 @@ void Building::update_stats() {}
 void Building::interact() {}
 
 void Building::on_select() {
+	m_selected = true;
 	for (size_t i = 0; i < m_buttons.size(); i++) {
 		m_buttons[i]->load(i, m_buttons.size());
 	}
 }
 void Building::on_unselect() {
+	m_selected = false;
 	for (size_t i = 0; i < m_buttons.size(); i++) {
 		m_buttons[i]->unload();
 	}
@@ -141,6 +178,11 @@ bool Building::ghost_intersect(Building &other) {
 			m_ghost_position_in_village_j + m_size_in_blocks > other.get_position_in_village_j();
 }
 
+void Building::set_ghost_position_in_village(int i, int j) {
+	m_ghost_position_in_village_i = i;
+	m_ghost_position_in_village_j = j;
+}
+
 GameManager& Building::get_game_manager() {
 	return m_game_manager;
 }
@@ -153,13 +195,18 @@ int Building::get_position_in_village_j() {
 	return m_position_in_village_j;
 }
 
+bool Building::can_lock() {
+	return !m_village.ghost_intersect(*this) and m_ghost_position_in_village_i >= 0 and m_ghost_position_in_village_i + m_size_in_blocks < Village::SIZE_IN_BLOCKS and m_ghost_position_in_village_j >= 0 and m_ghost_position_in_village_j + m_size_in_blocks < Village::SIZE_IN_BLOCKS;
+}
+
 void Building::lock_position() {
-	if (!m_village.ghost_intersect(*this) and m_ghost_position_in_village_i >= 0 and m_ghost_position_in_village_i + m_size_in_blocks < Village::SIZE_IN_BLOCKS and m_ghost_position_in_village_j >= 0 and m_ghost_position_in_village_j + m_size_in_blocks < Village::SIZE_IN_BLOCKS) {
+	if (can_lock()) {
 		m_position_in_village_i = m_ghost_position_in_village_i;
 		m_position_in_village_j = m_ghost_position_in_village_j;
 		move(m_position_in_village_i * m_game_manager.get_window_manager().get_width_block(), m_position_in_village_j * m_game_manager.get_window_manager().get_height_block());
 	} else {
-		std::cout << "Can't lock position !" << std::endl;
+		m_ghost_position_in_village_i = m_position_in_village_i;
+		m_ghost_position_in_village_j = m_position_in_village_j;
 	}
 }
 
@@ -178,4 +225,11 @@ void Building::upgrade_thread_function(Building &obj) {
 		std::cout << "Upgrade : " << obj.m_upgrade_step << "/" << obj.m_upgrade_time << std::endl;
 	}
 	obj.level_up();
+}
+
+void Building::start_moving() {
+	m_moving = true;
+}
+void Building::stop_moving() {
+	m_moving = false;
 }
