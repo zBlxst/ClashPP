@@ -5,6 +5,7 @@ Tank::Tank(Village &village, GameManager &game_manager, sf::Texture &texture) : 
 	m_level_max = Tank::MAX_LEVEL;
 }
 
+
 void Tank::update_stats() {
 	Building::update_stats();
 	m_cost = Tank::COSTS[m_level];

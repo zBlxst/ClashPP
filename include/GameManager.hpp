@@ -44,6 +44,7 @@ public:
 	void stop_battle();
 
 	void add_thread(std::shared_ptr<std::thread> thread);
+	void parse_save_line(std::string line);
 
 	template <typename T>
 	void create_building(T* = NULL) {

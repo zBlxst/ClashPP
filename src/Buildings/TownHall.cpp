@@ -6,7 +6,6 @@ TownHall::TownHall(Village &village, GameManager &game_manager) : Building(villa
 																m_cost(0) {
 	m_class_id = Building::TOWNHALL_ID;
 	m_size_in_blocks = TownHall::SIZE;
-	m_level = 0;
 	m_level_max = TownHall::MAX_LEVEL;
 	village.set_town_hall(std::make_shared<TownHall>(*this));
 }

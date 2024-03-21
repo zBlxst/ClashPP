@@ -38,7 +38,8 @@ public:
 	Troop(GameManager &game_manager, sf::Texture &texture, std::shared_ptr<Army> army, std::shared_ptr<Army> opponents, int max_hp, int attack, int attack_speed, int range, int move_speed, bool passive, int size_in_blocks);
 	void recv_damage(int amount, std::shared_ptr<Troop> source);
 	void lose_hp(int amount);
-	void attack(std::shared_ptr<Troop> target);
+	void heal(int amount);
+	virtual void attack(std::shared_ptr<Troop> target);
 	void die();
 	void find_target();
 	bool is_alive();
@@ -48,10 +49,11 @@ public:
 	void attack_target();
 
 	bool is_position_relative();
+	virtual bool is_hero();
 
 
-	void display();
-	void start();
+	virtual void display();
+	virtual void start();
 	void stop();
 	bool is_passive();
 	void update_sprite();

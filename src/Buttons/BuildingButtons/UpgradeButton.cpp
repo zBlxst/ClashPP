@@ -36,7 +36,6 @@ void UpgradeButton::display() {
 		} else if (m_building.get_mana_cost() > 0){
 			m_cost_text.setString("Mana : " + std::to_string((int)m_building.get_mana_cost()));
 		} else {
-			printf("fjezijoize\n");
 			m_cost_text.setString("");
 		}
 		if (!m_building.can_upgrade()) {

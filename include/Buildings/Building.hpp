@@ -66,7 +66,7 @@ public:
 	static int max_id;
 
 	Building(Village &village, GameManager &game_manager, sf::Texture &texture);
-
+	
 	int m_ghost_position_in_village_i; // Used to position the building and check whether it intersects an other building or not
 	int m_ghost_position_in_village_j; 
 
@@ -90,7 +90,7 @@ public:
 	int get_level();
 	virtual void update_stats();
 
-	virtual void start_upgrade();
+	virtual void start_upgrade(bool forced = false);
 
 	void on_select();
 	void on_unselect();
@@ -128,6 +128,9 @@ public:
 	bool is_position_relative();
 	void start_moving();
 	void stop_moving();
+
+	virtual std::string get_save_string();
+	virtual void restore_state(std::string);
 
 };
 

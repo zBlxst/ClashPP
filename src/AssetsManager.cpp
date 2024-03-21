@@ -26,6 +26,9 @@ AssetsManager::AssetsManager() {
 	m_guardian_texture.loadFromFile("assets/Troops/Guardian_1.png");
 	m_hunter_texture.loadFromFile("assets/Troops/Hunter_1.png");
 
+	m_thunder_god_texture.loadFromFile("assets/Heroes/Thunder_God.png");
+	m_druid_texture.loadFromFile("assets/Heroes/Druid.png");
+
 	
 }
 
@@ -74,7 +77,12 @@ sf::Texture& AssetsManager::get_right_arrow_texture() {
 sf::Texture& AssetsManager::get_guardian_texture() {
 	return m_guardian_texture;
 }
-
 sf::Texture& AssetsManager::get_hunter_texture() {
 	return m_hunter_texture;
+}
+sf::Texture& AssetsManager::get_thunder_god_texture() {
+	return m_thunder_god_texture;
+}
+sf::Texture& AssetsManager::get_druid_texture() {
+	return m_druid_texture;
 }

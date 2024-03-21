@@ -27,6 +27,9 @@ private:
 	sf::Texture m_guardian_texture;
 	sf::Texture m_hunter_texture;
 
+	sf::Texture m_thunder_god_texture;
+	sf::Texture m_druid_texture;
+
 public:
 	AssetsManager();
 
@@ -49,5 +52,9 @@ public:
 
 	sf::Texture& get_guardian_texture();
 	sf::Texture& get_hunter_texture();
+
+	sf::Texture& get_thunder_god_texture();
+	sf::Texture& get_druid_texture();
+
 
 };

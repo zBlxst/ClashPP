@@ -5,7 +5,11 @@
 #include "Army.hpp"
 
 #include "Troops/Guardian.hpp"
-#include <Troops/Hunter.hpp>
+#include "Troops/Hunter.hpp"
+
+#include "Troops/Heroes/ThunderGod.hpp"
+#include "Troops/Heroes/Druid.hpp"
+
 #include "Village.hpp"
 #include "Buildings/Building.hpp"
 #include "GameManager.hpp"
@@ -28,7 +32,6 @@ void BattleScene::load() {
 		h->move(std::rand()%m_window_manager.get_width(), 50);
 		m_defender->add_troop(h);
 
-
 	}
 
 	for (int i = 0; i < 1000; i++) {
@@ -38,7 +41,7 @@ void BattleScene::load() {
 		m_attacker->add_troop(g);
 
 		h->move(std::rand()%m_window_manager.get_width(), 550);
-		m_attacker->add_troop(h);	start_battle();
+		m_attacker->add_troop(h);
 	}
 }
 
@@ -53,14 +56,26 @@ void BattleScene::load(Village &village) {
 		m_defender->add_troop(buildings[i]->get_troop_component(m_defender, m_attacker));
 	}
 
-	for (int i = 0; i < 20; i++) {
-		std::shared_ptr<Guardian> g = std::make_shared<Guardian>(m_window_manager.get_game_manager(), m_attacker, m_defender);
-		//std::shared_ptr<Hunter> h = std::make_shared<Hunter>(m_window_manager.get_game_manager(), m_attacker, m_defender);
-		g->move(std::rand()%m_window_manager.get_width(), 500);
-		m_attacker->add_troop(g);
+	bool troops = false;
 
-		//h->move(std::rand()%m_window_manager.get_width(), 550);
-		//m_attacker->add_troop(h);
+	if (troops) {
+		for (int i = 0; i < 20; i++) {
+			std::shared_ptr<Guardian> g = std::make_shared<Guardian>(m_window_manager.get_game_manager(), m_attacker, m_defender);
+			//std::shared_ptr<Hunter> h = std::make_shared<Hunter>(m_window_manager.get_game_manager(), m_attacker, m_defender);
+			g->move(std::rand()%m_window_manager.get_width(), 500);
+			m_attacker->add_troop(g);
+
+			//h->move(std::rand()%m_window_manager.get_width(), 550);
+			//m_attacker->add_troop(h);
+		}
+	} else {
+		std::shared_ptr<ThunderGod> tg = std::make_shared<ThunderGod>(m_window_manager.get_game_manager(), m_attacker, m_defender);
+		tg->move(std::rand()%m_window_manager.get_width(), 500);
+		m_attacker->add_troop(tg);
+
+		std::shared_ptr<Druid> d = std::make_shared<Druid>(m_window_manager.get_game_manager(), m_attacker, m_defender);
+		d->move(std::rand()%m_window_manager.get_width(), 500);
+		m_attacker->add_troop(d);
 	}
 }
 

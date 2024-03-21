@@ -41,5 +41,7 @@ public:
 	bool can_afford(int gold, int mana);
 	void buy(std::shared_ptr<Building> building);
 
+	std::string get_save_string();
+	void parse_save_line(std::string line);
 
 };

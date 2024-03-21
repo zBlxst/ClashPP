@@ -59,6 +59,10 @@ override SRC :=	\
 		src/Troops/Troop.cpp \
 		src/Troops/Guardian.cpp \
 		src/Troops/Hunter.cpp \
+		\
+		src/Troops/Heroes/Hero.cpp \
+		src/Troops/Heroes/ThunderGod.cpp \
+		src/Troops/Heroes/Druid.cpp \
 
 
 
@@ -98,7 +102,7 @@ $(NAME): $(OBJ)
 
 # cleans up everything nicely
 clean:
-	$(RM) $(BUILDDIR) $(NAME) peda-session-main.txt .gdb_history
+	$(RM) $(BUILDDIR) $(NAME) peda-session-main.txt .gdb_history village.save
 
 # rules in order to correctly take into account the .hpp files
 $(BUILDDIR)/%.o: override CPPFLAGS += -MT $@ -MMD -MP -MF $(@:.o=.d)

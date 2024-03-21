@@ -38,15 +38,23 @@ void Troop::lose_hp(int amount) {
 	}
 }
 
+void Troop::heal(int amount) {
+	m_hp = std::min(m_hp + amount, m_max_hp);
+}
+
 void Troop::die() {
 	// printf("Dead!\n");
 	m_alive = false;
 }
 
+bool Troop::is_hero() {
+	return false;
+}
+
 void Troop::display() {
 	if (m_alive) {
 		Displayable::display();
-		if (m_hp < m_max_hp and m_visible) {
+		if ((m_hp < m_max_hp or is_hero()) and m_visible) {
 			int width = get_width();
 			int height = m_window_manager.get_height_block() / 3;
 
@@ -115,7 +123,7 @@ void Troop::attack_target() {
 		return;
 	}
 	attack(m_target);
-	std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	std::this_thread::sleep_for(std::chrono::milliseconds(m_attack_speed));
 }
 
 void Troop::move_to_target() {

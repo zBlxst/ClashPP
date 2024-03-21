@@ -55,3 +55,21 @@ void ResourceGenerator::production_thread_function(ResourceGenerator &obj) {
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
+
+std::string ResourceGenerator::get_save_string() {
+	return get_class_name() + " " + 
+		   std::to_string(m_level) + " " + 
+		   std::to_string((int)m_upgrade_step) + " " + 
+		   std::to_string(m_ghost_position_in_village_i) + " " + 
+		   std::to_string(m_ghost_position_in_village_j) + " " +
+		   std::to_string(m_stored);
+}
+
+void ResourceGenerator::restore_state(std::string state) {
+	sscanf(state.c_str(), "%d %le %d %d %f", &m_level, &m_upgrade_step, &m_position_in_village_i, &m_position_in_village_j, &m_stored);
+	if (m_upgrade_step > 0) {
+		start_upgrade(true);
+	}
+
+	update_stats();
+}

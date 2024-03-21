@@ -47,4 +47,7 @@ public:
 	float get_production();
 	float get_capacity();
 
+	std::string get_save_string();
+	void restore_state(std::string);
+
 };

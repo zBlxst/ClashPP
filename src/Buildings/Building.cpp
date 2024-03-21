@@ -9,10 +9,12 @@
 #include "Troops/Troop.hpp"
 
 #include <iostream>
-#include <chrono>
+#include <chrono> 
+#include <cstdio>
+#include <string>
 
 Building::Building(Village &village, GameManager &game_manager, sf::Texture &texture) : Clickable(game_manager.get_window_manager(), texture, true, true), m_id(Building::max_id++),
-	m_game_manager(game_manager), m_village(village), m_level(0), m_level_max(0), m_size_in_blocks(0), m_position_in_village_i(0), m_position_in_village_j(0), 
+	m_game_manager(game_manager), m_village(village), m_level(1), m_level_max(0), m_size_in_blocks(0), m_position_in_village_i(0), m_position_in_village_j(0), 
 	m_moving(false), m_selected(false), m_upgrading(false) {
 	
 	add_button(std::make_shared<InfoButton>(*this, game_manager));
@@ -130,6 +132,7 @@ void Building::level_up() {
 	if (m_level < m_level_max) {
 		m_level += 1;
 	}
+	m_upgrade_step = 0;
 	update_stats();
 	m_village.update();
 	m_sprite.setColor(sf::Color(255, 255, 255));
@@ -158,18 +161,20 @@ bool Building::can_upgrade() {
 			!m_upgrading;
 }
 
-void Building::start_upgrade() {
-	if (!can_upgrade()) {
+void Building::start_upgrade(bool forced) {
+	if (!can_upgrade() && !forced) {
 		return;
 	}
 
-	m_upgrading = true;
-	m_upgrade_step = 0;
-	m_village.get_resources_manager().add_gold(-get_gold_cost());
-	m_village.get_resources_manager().add_mana(-get_mana_cost());
+	if (not forced) {
+		m_upgrade_step = 0;
+		m_village.get_resources_manager().add_gold(-get_gold_cost());
+		m_village.get_resources_manager().add_mana(-get_mana_cost());
+	}
 	m_sprite.setColor(sf::Color(100, 100, 100));
 	m_upgrading_thread = std::make_shared<std::thread>(Building::upgrade_thread_function, std::ref(*this));
 	m_game_manager.add_thread(m_upgrading_thread);
+	m_upgrading = true;
 }
 
 void Building::print_infos() {
@@ -256,7 +261,9 @@ void Building::upgrade_thread_function(Building &obj) {
 		obj.m_upgrade_step += 1 * Building::DEBUG_MULTIPLIER_TIME;
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
-	obj.level_up();
+	if (obj.m_upgrade_step >= obj.m_upgrade_time) {
+		obj.level_up();
+	}
 }
 
 void Building::start_moving() {
@@ -272,5 +279,23 @@ std::shared_ptr<Troop> Building::get_troop_component(std::shared_ptr<Army> army,
 
 
 	return m_troop_component;
+}
 
+
+
+std::string Building::get_save_string() {
+	return get_class_name() + " " + 
+		   std::to_string(m_level) + " " +  
+		   std::to_string((int)m_upgrade_step) + " " + 
+		   std::to_string(m_ghost_position_in_village_i) + " " + 
+		   std::to_string(m_ghost_position_in_village_j);
+}
+
+void Building::restore_state(std::string state) {
+	sscanf(state.c_str(), "%d %le %d %d", &m_level, &m_upgrade_step, &m_position_in_village_i, &m_position_in_village_j);
+	if (m_upgrade_step > 0) {
+		start_upgrade(true);
+	}
+
+	update_stats();
 }
