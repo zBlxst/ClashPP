@@ -19,12 +19,11 @@ private:
 	std::vector<std::shared_ptr<Building>> m_buildings;
 	ResourcesManager m_resources_manager;
 
-	std::shared_ptr<VillageScene> m_village_scene;
 
 public:
 	static constexpr int SIZE_IN_BLOCKS = 36;
 
-	explicit Village(GameManager &game_manager, std::shared_ptr<VillageScene> village_scene);
+	Village(GameManager &game_manager);
 	void add_building(std::shared_ptr<Building> b);
 	void update();
 
@@ -43,5 +42,4 @@ public:
 	void buy(std::shared_ptr<Building> building);
 
 
-	std::shared_ptr<VillageScene> get_village_scene();
 };

@@ -27,16 +27,22 @@ public:
 
 	virtual bool is_position_relative() = 0;
 	void move(int x, int y);
+	void move_rel(int x, int y);
 	void resize(int x, int y);
 
 	int get_width();
 	int get_height();
 
+	int get_x();
+	int get_y();
+
+	int get_center_x();
+	int get_center_y();
+
 	bool get_visible();
 	void set_visible(bool value);
 
 	sf::Texture& get_texture();
-
 
 
 

@@ -13,6 +13,8 @@ class Village;
 class GameManager;
 
 class BuildingButton;
+class Troop;
+class Army;
 
 class Building : public Clickable {
 
@@ -26,6 +28,7 @@ protected:
 	Village &m_village;
 	int m_level;
 	int m_level_max;
+	int m_max_hp;
 
 	int m_size_in_blocks;
 
@@ -39,12 +42,14 @@ protected:
 	double m_upgrade_time;
 	double m_upgrade_step;
 
+	std::shared_ptr<Troop> m_troop_component;
+
 	std::vector<std::shared_ptr<BuildingButton>> m_buttons;
 
 	std::shared_ptr<std::thread> m_upgrading_thread;
 	static void upgrade_thread_function(Building &obj);
 
-	static constexpr double DEBUG_MULTIPLIER_TIME = 100;
+	static constexpr double DEBUG_MULTIPLIER_TIME = 10000;
 
 
 public:
@@ -54,6 +59,7 @@ public:
 	static constexpr int GOLDTANK_ID = 2;
 	static constexpr int MANAMILL_ID = 3;
 	static constexpr int MANATANK_ID = 4;
+	static constexpr int    TOWER_ID = 5;
 
 	static int max_id;
 
@@ -114,6 +120,7 @@ public:
 
 	int get_size();
 
+	virtual std::shared_ptr<Troop> get_troop_component(std::shared_ptr<Army> army, std::shared_ptr<Army> opponents);
 
 
 	bool is_position_relative();

@@ -30,4 +30,5 @@ void TownHall::update_stats() {
 	Building::update_stats();
 	m_cost = TownHall::COSTS[m_level];
 	m_upgrade_time = TownHall::UPGRADE_TIMES[m_level];
+	m_max_hp = TownHall::MAX_HPS[m_level];
 }

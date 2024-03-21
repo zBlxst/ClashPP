@@ -5,6 +5,7 @@
 #include "Buttons/CreateBuildingButtons/CreateGoldMineButton.hpp"
 #include "Buttons/CreateBuildingButtons/CreateManaTankButton.hpp"
 #include "Buttons/CreateBuildingButtons/CreateManaMillButton.hpp"
+#include "Buttons/CreateBuildingButtons/CreateTowerButton.hpp"
 #include "Buttons/CreateBuildingButtons/CreateTownHallButton.hpp"
 
 #include "Buttons/LeftButton.hpp"
@@ -45,6 +46,10 @@ void ShopScene::create_create_buttons() {
 	std::shared_ptr<CreateManaMillButton> create_mana_mill_button = std::make_shared<CreateManaMillButton>(m_window_manager.get_game_manager(), m_village);
 	m_create_buttons.push_back(create_mana_mill_button);
 	add_button(create_mana_mill_button);
+
+	std::shared_ptr<CreateTowerButton> create_tower_button = std::make_shared<CreateTowerButton>(m_window_manager.get_game_manager(), m_village);
+	m_create_buttons.push_back(create_tower_button);
+	add_button(create_tower_button);
 
 	std::shared_ptr<CreateTownHallButton> create_town_hall_button = std::make_shared<CreateTownHallButton>(m_window_manager.get_game_manager(), m_village);
 	m_create_buttons.push_back(create_town_hall_button);

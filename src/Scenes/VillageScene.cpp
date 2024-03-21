@@ -16,8 +16,8 @@
 #include "Scenes/ShopScene.hpp"
 #include "Buttons/OpenShopButton.hpp"
 
-VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village) : Scene(window_manager), m_game_manager(game_manager), 
-							m_village(village), m_shop_scene(std::make_shared<ShopScene>(window_manager, village)),
+VillageScene::VillageScene(WindowManager &window_manager, GameManager &game_manager) : Scene(window_manager), m_game_manager(game_manager), 
+							m_shop_scene(std::make_shared<ShopScene>(window_manager, game_manager.get_village())),
 							m_selected_building_id(-1), m_dragging(false), m_base_drag_x(0), m_base_drag_y(0), m_base_camera_x(0), m_base_camera_y(0), m_dragging_building(false) {
 
 }
@@ -87,6 +87,10 @@ bool VillageScene::manage_event(sf::Event event) {
 			case sf::Keyboard::R:
 				m_game_manager.get_village().get_resources_manager().add_gold(10000000000000000);
 				m_game_manager.get_village().get_resources_manager().add_mana(10000000000000000);
+				catched = true;
+				break;
+			case sf::Keyboard::B:
+				m_game_manager.start_battle();
 				catched = true;
 				break;
 			default:
@@ -166,7 +170,7 @@ void VillageScene::select_building(Building &building) {
 }
 
 std::shared_ptr<Building> VillageScene::find_building_by_id(int id) {
-	std::vector<std::shared_ptr<Building>> all_buildings = m_village.get_buildings();
+	std::vector<std::shared_ptr<Building>> all_buildings = m_game_manager.get_village().get_buildings();
 	for (size_t i = 0; i < all_buildings.size(); i++) {
 		if (all_buildings[i]->get_id() == id) {
 			return all_buildings[i];
@@ -187,6 +191,3 @@ void VillageScene::open_shop() {
 	m_scene_above->load(this->shared_from_this());
 }
 
-Village& VillageScene::get_village() {
-	return m_village;
-}

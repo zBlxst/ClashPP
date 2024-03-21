@@ -26,10 +26,12 @@ override SRC :=	\
 		src/Buildings/ResourceGenerator.cpp \
 		src/Buildings/GoldMine.cpp \
 		src/Buildings/ManaMill.cpp \
+		src/Buildings/Tower.cpp \
 		\
 		src/Scenes/Scene.cpp \
 		src/Scenes/VillageScene.cpp \
 		src/Scenes/ShopScene.cpp \
+		src/Scenes/BattleScene.cpp \
 		\
 		src/Buttons/Button.cpp \
 		src/Buttons/OpenShopButton.cpp \
@@ -49,9 +51,14 @@ override SRC :=	\
 		src/Buttons/CreateBuildingButtons/CreateGoldMineButton.cpp \
 		src/Buttons/CreateBuildingButtons/CreateManaMillButton.cpp \
 		src/Buttons/CreateBuildingButtons/CreateManaTankButton.cpp \
+		src/Buttons/CreateBuildingButtons/CreateTowerButton.cpp \
 		src/Buttons/CreateBuildingButtons/CreateTownHallButton.cpp \
-
-		
+		\
+		src/Army.cpp \
+		\
+		src/Troops/Troop.cpp \
+		src/Troops/Guardian.cpp \
+		src/Troops/Hunter.cpp \
 
 
 

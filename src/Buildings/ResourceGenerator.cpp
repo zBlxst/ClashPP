@@ -21,6 +21,7 @@ void ResourceGenerator::update_stats() {
 	m_capacity = ResourceGenerator::CAPACITIES[m_level];
 	m_cost = ResourceGenerator::COSTS[m_level];
 	m_upgrade_time = ResourceGenerator::UPGRADE_TIMES[m_level];
+	m_max_hp = ResourceGenerator::MAX_HPS[m_level];
 }
 
 void ResourceGenerator::print_infos() {

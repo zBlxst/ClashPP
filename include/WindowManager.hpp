@@ -8,6 +8,7 @@
 
 #include "Scenes/Scene.hpp"
 #include <Scenes/VillageScene.hpp>
+#include <Scenes/BattleScene.hpp>
 #include "Camera.hpp"
 
 class GameManager;
@@ -24,8 +25,6 @@ private:
 	std::vector<std::shared_ptr<Displayable>> m_displayables;
 	std::vector<std::shared_ptr<Clickable>> m_clickables;
 
-	std::shared_ptr<VillageScene> m_village_scene;
-	std::shared_ptr<Scene> m_current_scene;
 
 	int m_width;
 	int m_height;
@@ -53,10 +52,6 @@ public:
 
 	int get_width();
 	int get_height();
-
-	std::shared_ptr<Scene> get_current_scene();
-	std::shared_ptr<VillageScene> get_village_scene();
-
 
 	sf::RenderWindow& get_window();
 	AssetsManager &get_assets_manager();

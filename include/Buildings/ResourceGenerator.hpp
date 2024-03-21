@@ -16,6 +16,7 @@ public:
 	static constexpr double PRODUCTIONS[MAX_LEVEL+1] = {0, 2100, 2200, 2300, 2400, 2500};
 	static constexpr double COSTS[MAX_LEVEL+1] = {240, 1100, 3000, 6000, 13000, 22000};
 	static constexpr double UPGRADE_TIMES[MAX_LEVEL+1] = {10, 60, 300, 900, 1800, 3600};
+	static constexpr double MAX_HPS[MAX_LEVEL+1] = {0, 2500, 3000, 3500, 4000, 4500};
 	static constexpr std::array<int, TownHall::MAX_LEVEL+1> MAX_OCCURENCES = {3, 3, 3, 3, 3, 3};
 
 protected:

@@ -6,6 +6,7 @@
 #include "Buttons/BuildingButtons/UpgradeButton.hpp"
 #include "Buttons/BuildingButtons/InfoButton.hpp"
 
+#include "Troops/Troop.hpp"
 
 #include <iostream>
 #include <chrono>
@@ -153,14 +154,14 @@ void Building::update_sprite() {
 
 void Building::add_button(std::shared_ptr<BuildingButton> button) {
 	m_buttons.push_back(button);
-	m_game_manager.get_window_manager().get_village_scene()->add_button(button);
+	m_game_manager.get_village_scene()->add_button(button);
 }
 
 void Building::on_click() {
-	if (m_village.get_village_scene()->get_selected_building_id() == m_id) {
+	if (m_game_manager.get_village_scene()->get_selected_building_id() == m_id) {
 		interact();
 	} else {
-		m_village.get_village_scene()->select_building(*this);
+		m_game_manager.get_village_scene()->select_building(*this);
 	}
 }
 
@@ -232,4 +233,13 @@ void Building::start_moving() {
 }
 void Building::stop_moving() {
 	m_moving = false;
+}
+
+std::shared_ptr<Troop> Building::get_troop_component(std::shared_ptr<Army> army, std::shared_ptr<Army> opponents) {
+	m_troop_component = std::make_shared<Troop>(m_game_manager, m_texture, army, opponents, m_max_hp, 0, 0, 0, 0, true, m_size_in_blocks);
+	m_troop_component->move(get_x(), get_y());
+
+
+	return m_troop_component;
+
 }

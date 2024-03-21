@@ -2,6 +2,7 @@
 
 #include "WindowManager.hpp"
 #include <iostream>
+#include <cmath>
 
 
 Displayable::Displayable(WindowManager &window_manager, sf::Texture &texture, bool visible) : 
@@ -41,6 +42,12 @@ void Displayable::move(int x, int y) {
 	m_position_y = y;
 }
 
+void Displayable::move_rel(int x, int y) {
+	m_position_x += x;
+	m_position_y += y;
+}
+
+
 
 void Displayable::resize(int x, int y) {
 	m_size_x = x;
@@ -65,4 +72,20 @@ void Displayable::set_visible(bool value) {
 
 sf::Texture& Displayable::get_texture() {
 	return m_texture;
+}
+
+int Displayable::get_x() {
+	return m_position_x;
+}
+
+int Displayable::get_y() {
+	return m_position_y;
+}
+
+int Displayable::get_center_x() {
+	return m_position_x + m_size_x / 2;
+}
+
+int Displayable::get_center_y() {
+	return m_position_y + m_size_y / 2;
 }

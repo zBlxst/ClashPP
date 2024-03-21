@@ -11,6 +11,7 @@ private:
 	sf::Texture m_gold_tank_1_texture;
 	sf::Texture m_mana_mill_1_texture;
 	sf::Texture m_mana_tank_1_texture;
+	sf::Texture m_tower_1_texture;
 	sf::Texture m_town_hall_1_texture;
 
 	sf::Texture m_building_upgrade_texture;
@@ -23,6 +24,9 @@ private:
 	sf::Texture m_left_arrow_texture;
 	sf::Texture m_right_arrow_texture;
 
+	sf::Texture m_guardian_texture;
+	sf::Texture m_hunter_texture;
+
 public:
 	AssetsManager();
 
@@ -31,6 +35,7 @@ public:
 	sf::Texture& get_gold_tank_texture();
 	sf::Texture& get_mana_mill_texture();
 	sf::Texture& get_mana_tank_texture();
+	sf::Texture& get_tower_texture();
 	sf::Texture& get_town_hall_texture();
 
 	sf::Texture& get_building_upgrade_texture();
@@ -41,5 +46,8 @@ public:
 
 	sf::Texture& get_left_arrow_texture();
 	sf::Texture& get_right_arrow_texture();
+
+	sf::Texture& get_guardian_texture();
+	sf::Texture& get_hunter_texture();
 
 };

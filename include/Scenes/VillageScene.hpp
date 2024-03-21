@@ -17,7 +17,6 @@ class VillageScene : public Scene, public std::enable_shared_from_this<VillageSc
 
 private:
 	GameManager &m_game_manager;
-	Village &m_village;
 
 	std::shared_ptr<ShopScene> m_shop_scene;
 	std::shared_ptr<OpenShopButton> m_open_shop_button;
@@ -37,7 +36,7 @@ private:
 
 
 public:
-	VillageScene(WindowManager &window_manager, GameManager &game_manager, Village &village);
+	VillageScene(WindowManager &window_manager, GameManager &game_manager);
 
 	void load();
 
@@ -50,7 +49,7 @@ public:
 	int get_selected_building_id();
 	void select_building(Building &building);
 	void unselect_building();
-	Village& get_village();
+
 	std::shared_ptr<Building> find_building_by_id(int id);
 
 

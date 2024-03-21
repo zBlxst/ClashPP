@@ -23,7 +23,6 @@ void CreateBuildingButton::update_sprite() {
 		}
 	} else {
 		if (not m_active) {
-			printf("Here\n");
 			m_sprite.setColor(sf::Color(255, 255, 255));
 			set_active(true);
 		}
