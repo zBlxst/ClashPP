@@ -46,12 +46,13 @@ void Troop::die() {
 void Troop::display() {
 	if (m_alive) {
 		Displayable::display();
-		if (m_hp < m_max_hp) {
-			int pos_x = get_x() - m_window_manager.get_camera().get_x();
-			int pos_y = get_y() - m_window_manager.get_camera().get_y() - get_height() / 2;
-
+		if (m_hp < m_max_hp and m_visible) {
 			int width = get_width();
 			int height = m_window_manager.get_height_block() / 3;
+
+			int pos_x = get_x() - m_window_manager.get_camera().get_x();
+			int pos_y = get_y() - m_window_manager.get_camera().get_y() - 3*height;
+
 
 			sf::RectangleShape backgroundRectangle;
 			backgroundRectangle.setPosition(sf::Vector2f(pos_x, pos_y));

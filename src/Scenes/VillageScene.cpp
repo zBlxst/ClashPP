@@ -27,14 +27,14 @@ void VillageScene::load() {
 	Scene::load();
 	m_text_gold.setFont(m_window_manager.get_assets_manager().get_gold_and_mana_font());
 	m_text_gold.setFillColor(sf::Color::White);
-	m_text_gold.setCharacterSize(24);
+	m_text_gold.setCharacterSize(m_window_manager.get_height_block());
 	m_text_gold.setString("Gold : " + std::to_string((int)m_game_manager.get_village().get_resources_manager().get_gold()));
 
 	m_text_mana.setFont(m_window_manager.get_assets_manager().get_gold_and_mana_font());
 	m_text_mana.setFillColor(sf::Color::White);
-	m_text_mana.setCharacterSize(24);
+	m_text_mana.setCharacterSize(m_window_manager.get_height_block());
 	m_text_mana.setString("Mana : " + std::to_string((int)m_game_manager.get_village().get_resources_manager().get_mana()));
-	m_text_mana.move(0.0, m_text_gold.getLocalBounds().height*(3.0/2.0));
+	m_text_mana.setPosition(0.0, m_text_gold.getLocalBounds().height*(3.0/2.0));
 
 	if (m_open_shop_button == nullptr) {
 		m_open_shop_button = std::make_shared<OpenShopButton>(m_window_manager, *this);

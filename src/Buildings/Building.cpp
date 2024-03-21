@@ -27,7 +27,6 @@ void Building::display() {
 	} else {
 		display_ghost();
 	}
-
 	if (m_selected and m_visible) {
 		int pos_x = m_position_x - m_window_manager.get_camera().get_x() + (m_ghost_position_in_village_i - m_position_in_village_i)*m_game_manager.get_window_manager().get_width_block();
 		int pos_y = m_position_y - m_window_manager.get_camera().get_y() + (m_ghost_position_in_village_j - m_position_in_village_j)*m_game_manager.get_window_manager().get_height_block();
@@ -45,6 +44,39 @@ void Building::display() {
 			rectangle.setFillColor(sf::Color(255, 255, 255, 100));
 		}
 		m_window_manager.get_window().draw(rectangle);
+	}
+
+	if (m_upgrading) {
+		int width = get_width();
+		int height = m_window_manager.get_height_block() / 3;
+
+		int pos_x = get_x() - m_window_manager.get_camera().get_x();
+		int pos_y = get_y() - m_window_manager.get_camera().get_y() - 3*height;
+
+
+		sf::RectangleShape backgroundRectangle;
+		backgroundRectangle.setPosition(sf::Vector2f(pos_x, pos_y));
+		backgroundRectangle.setSize(sf::Vector2f(width, height));
+		backgroundRectangle.setFillColor(sf::Color(100, 100, 100));
+		m_window_manager.get_window().draw(backgroundRectangle);
+
+		sf::RectangleShape healthRectangle;
+		healthRectangle.setPosition(sf::Vector2f(pos_x, pos_y));
+		healthRectangle.setSize(sf::Vector2f((int)((float)width * ((float)m_upgrade_step / (float)m_upgrade_time)), height));
+		healthRectangle.setFillColor(sf::Color(0, 0, 255));
+		m_window_manager.get_window().draw(healthRectangle);
+
+		int remaining = m_upgrade_time - m_upgrade_step;
+		int text_size = m_game_manager.get_window_manager().get_height_block() * 0.70;
+
+		m_text_upgrade_time.setFont(m_window_manager.get_assets_manager().get_gold_and_mana_font());
+		m_text_upgrade_time.setFillColor(sf::Color::White);
+		m_text_upgrade_time.setCharacterSize(text_size);
+		m_text_upgrade_time.setString(std::to_string(remaining/3600) + "h " + std::to_string((remaining%3600)/60) + "m " + std::to_string(remaining%60) + "s");
+		m_text_upgrade_time.setPosition(pos_x + get_width() / 2 - m_text_upgrade_time.getGlobalBounds().width/2, pos_y - text_size);
+
+
+		m_window_manager.get_window().draw(m_text_upgrade_time);
 	}
 }
 
@@ -223,7 +255,6 @@ void Building::upgrade_thread_function(Building &obj) {
 	while (obj.m_upgrade_step < obj.m_upgrade_time and obj.m_game_manager.is_running()) {
 		obj.m_upgrade_step += 1 * Building::DEBUG_MULTIPLIER_TIME;
 		std::this_thread::sleep_for(std::chrono::seconds(1));
-		std::cout << "Upgrade : " << obj.m_upgrade_step << "/" << obj.m_upgrade_time << std::endl;
 	}
 	obj.level_up();
 }

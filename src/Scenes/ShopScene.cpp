@@ -97,7 +97,6 @@ void ShopScene::update_menu() {
 			m_create_buttons[i]->resize(get_width() / 7, get_width() / 7);
 			m_create_buttons[i]->move(get_pos_x() + m_create_buttons[i]->get_width()*(1+2*diff), get_pos_y() + get_height() / 2 - m_create_buttons[i]->get_height() / 2);
 			m_create_buttons[i]->load();
-
 		} else {
 			m_create_buttons[i]->unload();
 		}

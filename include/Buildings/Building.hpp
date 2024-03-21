@@ -42,6 +42,8 @@ protected:
 	double m_upgrade_time;
 	double m_upgrade_step;
 
+	sf::Text m_text_upgrade_time;
+
 	std::shared_ptr<Troop> m_troop_component;
 
 	std::vector<std::shared_ptr<BuildingButton>> m_buttons;
@@ -49,7 +51,7 @@ protected:
 	std::shared_ptr<std::thread> m_upgrading_thread;
 	static void upgrade_thread_function(Building &obj);
 
-	static constexpr double DEBUG_MULTIPLIER_TIME = 10000;
+	static constexpr double DEBUG_MULTIPLIER_TIME = 100;
 
 
 public:
