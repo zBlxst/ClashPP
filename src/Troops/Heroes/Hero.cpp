@@ -3,7 +3,7 @@
 #include "WindowManager.hpp"
 
 Hero::Hero(GameManager &game_manager, sf::Texture &texture, std::shared_ptr<Army> army, std::shared_ptr<Army> opponents, int max_hp, int attack, int attack_speed, int range, int move_speed, int size_in_blocks, int attack_growth, int max_hp_growth) :
-	Troop(game_manager, texture, army,opponents, max_hp, attack, attack_speed, range, move_speed, false, size_in_blocks), m_level(30), m_energy(0), m_base_attack(attack), m_base_max_hp(max_hp), m_attack_growth(attack_growth), m_max_hp_growth(max_hp_growth) {}
+	Troop(game_manager, texture, army,opponents, max_hp, attack, attack_speed, range, move_speed, false, size_in_blocks), m_level(1), m_energy(0), m_base_attack(attack), m_base_max_hp(max_hp), m_attack_growth(attack_growth), m_max_hp_growth(max_hp_growth) {}
 
 	
 void Hero::attack(std::shared_ptr<Troop> target) {

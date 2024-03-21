@@ -51,7 +51,7 @@ protected:
 	std::shared_ptr<std::thread> m_upgrading_thread;
 	static void upgrade_thread_function(Building &obj);
 
-	static constexpr double DEBUG_MULTIPLIER_TIME = 100;
+	static constexpr double DEBUG_MULTIPLIER_TIME = 1;
 
 
 public:

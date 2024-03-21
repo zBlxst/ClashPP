@@ -90,8 +90,8 @@ WindowManager &GameManager::get_window_manager() {
 }
 
 void GameManager::start_battle() {
-	//m_battle_scene->load(m_village);
-	m_battle_scene->load();
+	m_battle_scene->load(m_village);
+	//m_battle_scene->load();
 	m_battle_scene->start_battle();
 	swap_to_battle_scene();
 }

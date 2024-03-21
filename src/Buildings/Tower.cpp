@@ -7,7 +7,6 @@ Tower::Tower(Village &village, GameManager &game_manager) : Building(village, ga
 																m_cost(0) {
 	m_class_id = Building::TOWER_ID;
 	m_size_in_blocks = Tower::SIZE;
-	m_level = 0;
 	m_level_max = Tower::MAX_LEVEL;
 }
 

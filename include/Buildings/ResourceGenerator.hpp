@@ -26,7 +26,7 @@ protected:
 	float m_stored;
 	float m_capacity;
 
-	static constexpr double DEBUG_MULTIPLIER = 600;
+	static constexpr double DEBUG_MULTIPLIER = 1;
 
 	static constexpr int SIZE = 3;
 
